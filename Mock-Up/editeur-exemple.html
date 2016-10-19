@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<title>CodeMirror:</title>
+<script src="./js/codemirror.js"></script>
+<link rel="stylesheet" href="./css/codemirror.css">
+<link rel="stylesheet" href="./theme/paraiso-light.css">
+<script src="./mode/python/python.js"></script>  
+</head>
+
+<body>
+<div id ="codeEditor">
+
+</div>
+<script>
+    var editor = CodeMirror(document.getElementById("codeEditor"),{
+        mode : "python",
+        theme: "paraiso-light",
+        tabSize: 4,
+        lineNumbers: true,
+        firstLineNumber: 0
+    });
+</script>
+</body>
+</html>
