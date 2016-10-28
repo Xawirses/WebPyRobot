@@ -5,8 +5,8 @@
     <title>Login</title>
 </head>
 <body>
-    {% if form.errors %}
-    <p>Your username and password didn't match. Please try again.</p>
+    {% if error %}
+    <p>{{ error }}</p>
     {% endif %}
 
     {% if next %}
@@ -14,11 +14,14 @@
     {% endif %}
 
     <form method="post" action="{% url 'backend:login' %}">
-    {% csrf_token %}
-    <input type="text" name="username" value="test"/>
-    <input type="text" name="password" value="testtest1"/>
-    <input type="hidden" name="next" value="{{ next }}" />
-    <input type="submit" value="login" />
+        {% csrf_token %}
+        <input type="text" name="username" value="test"/>
+        <input type="text" name="password" value="testtest1"/>
+        {% if next %}
+        <input type="hidden" name="next" value="{{ next }}" />
+        {% endif %}
+        <input type="submit" value="login" />
     </form>
+    <a href="{% url 'backend:signup' %}">Or sign up</a>
 </body>
 </html>
