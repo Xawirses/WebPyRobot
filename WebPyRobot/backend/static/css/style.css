@@ -1,0 +1,36 @@
+/* Custom Stylesheet */
+/**
+ * Use this file to override Materialize files so you can update
+ * the core Materialize files in the future
+ *
+ * Made By MaterializeCSS.com
+ */
+
+.icon-block {
+  padding: 0 15px;
+}
+.icon-block .material-icons {
+	font-size: inherit;
+}
+
+.padding-section {
+	padding-left: 20px;
+	padding-right: 20px;
+	padding-top: 10px;
+	padding-bottom: 20px;
+}
+.pad {
+	padding: 5px;
+}
+
+.equipement-icon {
+	max-height: 100px;
+	max-width: 100px;
+}
+
+.margTop {
+	margin-top: 10px;
+}
+#containerHelp {
+	height: 300px;
+}
