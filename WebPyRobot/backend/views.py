@@ -6,6 +6,7 @@ from django.views.generic.edit import FormView
 from django.urls import reverse
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
+from .models import UserProfile
 
 # Create your views here.
 
@@ -49,11 +50,11 @@ def logout(request):
 
 class SignUp (FormView):
     from .forms import SignUpForm
-    template_name = 'backend/signup.html'
+    template_name = 'backend/signUp.html'
     form_class = SignUpForm
 
     def get_success_url(self):
-        self.success_url = reverse('backend:signupthanks')
+        self.success_url = reverse('backend:signUpThanks')
         return super().get_success_url()
 
     def get(self, request, *args, **kwargs):
@@ -68,7 +69,8 @@ class SignUp (FormView):
         try:
             User.objects.get(username=username)
         except ObjectDoesNotExist:
-            User.objects.create_user(username, email, password)
+            user = User.objects.create_user(username, email, password)
+            UserProfile(user=user, money=0).save()
             return super(SignUp, self).form_valid(form)
         return super(SignUp, self).form_invalid(form)
 
@@ -76,26 +78,32 @@ class SignUp (FormView):
 def thanks(request):
     return HttpResponse('Merci de c etre inscrit !')
 
-@login_required(login_url='/login/')
+
+@login_required
 def fight(request):
     return HttpResponse('page de fight')
 
-@login_required(login_url='/login/')
+
+@login_required
 def figthdetail(request, pk):
     return HttpResponse('page figthDetails pour ' + pk)
 
-@login_required(login_url='/login/')
+
+@login_required
 def editor(request):
     return HttpResponse('page de l editor')
 
-@login_required(login_url='/login/')
-def editordetail(request, pk):
+
+@login_required
+def editorDetail(request, pk):
     return HttpResponse('page de l editor pour ' + pk)
 
-@login_required(login_url='/login/')
+
+@login_required
 def market(request):
     return HttpResponse('page du market')
 
-@login_required(login_url='/login/')
+
+@login_required
 def help(request):
     return HttpResponse('page du je suis perdu')

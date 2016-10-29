@@ -13,7 +13,7 @@
         <p>Please sign up to see the {{ next }}.</p>
     {% endif %}
 
-    <form action="{% url 'backend:signup' %}" method="post">
+    <form action="{% url 'backend:signUp' %}" method="post">
         {% csrf_token %}
         {{ form.as_p }}
         {% if next %}
