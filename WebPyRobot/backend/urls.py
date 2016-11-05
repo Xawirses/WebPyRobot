@@ -1,12 +1,19 @@
-from django.conf.urls import url
+from django.conf.urls import url, include
+from django.contrib.auth import views as auth_views
 
 from . import views
 
+app_name = 'backend'
 urlpatterns = [
     url(r'^$', views.index, name='index'),
-    url(r'^accueil$', views.accueil, name='accueil'),
-    url(r'^boutique$', views.boutique, name='boutique'),
-    url(r'^inventaire$', views.inventaire, name='inventaire'),
-    url(r'^editeur$', views.editeur, name='editeur'),
-    url(r'^aide$', views.aide, name='aide'),
+    url(r'^login/$', views.login, name='login'),
+    url(r'^logout/$', views.logout, name='logout'),
+    url(r'^signup/$', views.SignUp.as_view(), name='signUp'),
+    url(r'^signup/thanks/$', views.thanks, name='signUpThanks'),
+    url(r'^fight/$', views.fight, name='fight'),
+    url(r'^fight/(?P<pk>[0-9]+)/$', views.figthdetail, name='fightDetail'),
+    url(r'^editor/$', views.editor, name='editor'),
+    url(r'^editor/(?P<pk>[0-9]+)/$', views.editorDetail, name='editorDetail'),
+    url(r'^market/$', views.market, name='market'),
+    url(r'^help/$', views.help, name='help'),
 ]
