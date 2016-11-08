@@ -6,44 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
     <title>WebPyRobot - Editeur</title>
 
-    {% include 'backend/header.html' %}
+    {% include 'backend/head.html' %}
 
     <!-- Editeur Python CSS -->
     <link rel="stylesheet" href="{% static 'css/codemirror.css' %}">
     <link rel="stylesheet" href="{% static 'theme/material.css' %}">
   </head>
   <body>
-    <header class="navbar-fixed">
-      <nav class="light-blue lighten-1" role="navigation">
-        <div class="nav-wrapper container"><a id="logo-container" onclick="window.location.href='/'" class="brand-logo">Logo</a>
-          <ul class="right hide-on-med-and-down">
-            <li><a href="#">Combat<span class="new badge">2</span></a></li>
-            <li><a href="#"><i class="material-icons left">attach_money</i>300</a></li>
-            <li><a href="#"><i class="material-icons left">account_box</i>John Doe</a></li>
-            <li><a href="#"><i class="material-icons">settings</i></a></li>
-            <li><a style="cursor:pointer" onclick="window.location.href='/logout'"><i class="material-icons">power_settings_new</i></a></li>
-          </ul>
-
-          <ul id="nav-mobile" class="side-nav">
-            <li>
-              <div class="userView">
-                <img class="background" src="img/galaxy.jpg">
-                <a href="#!name"><span class="white-text name">John Doe</span></a>
-                <a href="#!email"><span class="white-text email">jdandturk@gmail.com</span></a>
-              </div>
-            </li>
-            <li><a class="waves-effect" href="#">Combat<span class="new badge">2</span></a></li>
-            <li><a class="waves-effect" href="#"><i class="material-icons left">attach_money</i>300</a></li>
-            <li><a class="waves-effect" href="#"><i class="material-icons left">settings</i>Paramêtre</a></li>
-            <li><a class="waves-effect" onclick="window.location.href='/logout'"><i class="material-icons left">power_settings_new</i>Déconecter</a></li>
-            <li><div class="divider"></div></li>
-            {% include 'backend/mobilNav_Link.html' %}
-
-          </ul>
-          <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
-        </div>
-      </nav>
-    </header>
+    {% include 'backend/header.html' %}
     <main class="container">
       <div class="section">
         <div class="row">
