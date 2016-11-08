@@ -33,23 +33,23 @@
       <div id="modalConnexion" class="modal">
         <div class="modal-content">
           <h4>Connexion</h4>
-          <div class="row">
             <form method="post" action="{% url 'backend:login' %}">
+              <div class="row">
               {% csrf_token %}
-              <div class="input-field col s12">
-                <input placeholder="Placeholder" id="username" name="username" type="text" class="validate">
-                <label for="first_name">Pseudo</label>
-              </div>
-              <div class="input-field col s12">
-                <input id="password" name="password" type="password" class="validate">
-                <label for="password">Password</label>
-              </div>
-              <input type="submit" value="login">
+                  <div class="input-field col s12">
+                    <input placeholder="Placeholder" id="username" name="username" type="text" class="validate">
+                    <label for="first_name">Pseudo</label>
+                  </div>
+                  <div class="input-field col s12">
+                    <input id="password" name="password" type="password" class="validate">
+                    <label for="password">Password</label>
+                  </div>
+                 <div class="modal-footer">
+                   <input type="submit" value="Se Connecter" class=" modal-action waves-effect waves-green btn"></input>
+                 </div>
+               </div>
             </form>
-          </div>
-          <div class="modal-footer">
-            <input type="submit" value="Se Connecter" class=" modal-action waves-effect waves-green btn"></input>
-          </div>
+
         </div>
       </div>
 

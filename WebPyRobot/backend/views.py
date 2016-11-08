@@ -14,7 +14,8 @@ from .models import UserProfile, Tank
 
 def index(request):
     if request.user.is_authenticated:
-        context = {'money' : 340 }
+        context = {'money' : 340,
+                   'pageIn' : 'accueil' }
         return render(request, "backend/accueil.html", context)
     else:
         return render(request, "backend/index.html")
@@ -98,7 +99,8 @@ def figthdetail(request, pk):
 
 @login_required
 def editor(request):
-    return render(request, 'backend/editeur.html')
+    context = {'pageIn': 'editor'}
+    return render(request, 'backend/editeur.html',context)
 
 
 @login_required
@@ -108,13 +110,16 @@ def editorDetail(request, pk):
 
 @login_required
 def market(request):
-    return render(request, 'backend/boutique.html')
+    context = {'pageIn': 'market'}
+    return render(request, 'backend/boutique.html',context)
 
 @login_required
 def inventory(request):
-    return render(request, 'backend/inventaire.html')
+    context = {'pageIn': 'inventory'}
+    return render(request, 'backend/inventaire.html',context)
 
 @login_required
 def help(request):
-    return render(request, 'backend/aide.html')
+    context = {'pageIn': 'help'}
+    return render(request, 'backend/aide.html',context)
 
