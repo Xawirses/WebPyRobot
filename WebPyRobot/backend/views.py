@@ -6,7 +6,8 @@ from django.views.generic.edit import FormView
 from django.urls import reverse
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
-from .models import UserProfile
+from .models import UserProfile, Tank
+from .game.Game import Game, Robot
 
 # Create your views here.
 
@@ -81,6 +82,11 @@ def thanks(request):
 
 @login_required
 def fight(request):
+    tank = Tank.objects.get(owner_id=1)
+    r1 = Robot(tank)
+    r2 = Robot(tank)
+    game = Game(r1, r2)
+    game.process()
     return HttpResponse('page de fight')
 
 
