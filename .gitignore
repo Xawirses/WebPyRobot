@@ -10,6 +10,9 @@ local_settings.py
 db.sqlite3
 media
 
+.idea
+WebPyRobot/.idea/*
+WebPyRobot/run.sh.save
 
 ### Python ###
 # Byte-compiled / optimized / DLL files
