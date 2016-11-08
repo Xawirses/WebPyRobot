@@ -10,27 +10,28 @@
 
   </head>
   <body>
-    <nav class="light-blue lighten-1" role="navigation">
-      <div class="nav-wrapper container"><a id="logo-container" href="index" class="brand-logo">Logo</a>
-        <ul class="right hide-on-med-and-down">
-          <li><a class="modal-trigger" href="#modalConnexion">Connexion</a></li>
-          <li><a class="modal-trigger" href="#modalInscription">Inscription</a></li>
-        </ul>
+    <header>
+        <nav class="light-blue lighten-1" role="navigation">
+          <div class="nav-wrapper container"><a id="logo-container" href="index" class="brand-logo">Logo</a>
+            <ul class="right hide-on-med-and-down">
+              <li><a class="modal-trigger" href="#modalConnexion">Connexion</a></li>
+              <li><a class="modal-trigger" href="#modalInscription">Inscription</a></li>
+            </ul>
 
-        <ul id="nav-mobile" class="side-nav">
-          <li><a class="modal-trigger" href="#modalConnexion">Connexion</a></li>
-          <li><a class="modal-trigger" href="#modalInscription">Inscription</a></li>
-        </ul>
-        <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
-      </div>
-    </nav>
-
-        {% if error %}
-    <p>{{ error }}</p>
+            <ul id="nav-mobile" class="side-nav">
+              <li><a class="modal-trigger" href="#modalConnexion">Connexion</a></li>
+              <li><a class="modal-trigger" href="#modalInscription">Inscription</a></li>
+            </ul>
+            <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+          </div>
+        </nav>
+    </header>
+    {% if error %}
+        <p>{{ error }}</p>
     {% endif %}
 
       <!-- MODAL  -->
-      <div id="modalConnexion" class="modal">
+    <div id="modalConnexion" class="modal">
         <div class="modal-content">
           <h4>Connexion</h4>
             <form method="post" action="{% url 'backend:login' %}">
@@ -52,7 +53,6 @@
 
         </div>
       </div>
-
     <div id="modalInscription" class="modal modal-fixed-footer">
         <div class="modal-content">
           <h4>Inscription</h4>
@@ -82,9 +82,7 @@
         </div>
       </div>
 
-
-
-    <div class="container">
+    <main class="container">
       <div class="section">
 
         <!--   Icon Section   -->
@@ -128,7 +126,7 @@
           <a class="carousel-item" href="#five!"><img src="{% static 'img/galaxy.jpg' %}"></a>
         </div>
       </div>
-    </div>
+    </main>
 
     {% include 'backend/footer.html' %}
 
