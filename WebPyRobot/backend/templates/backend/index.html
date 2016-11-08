@@ -1,6 +1,6 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
@@ -25,29 +25,35 @@
       </div>
     </nav>
 
+        {% if error %}
+    <p>{{ error }}</p>
+    {% endif %}
+
       <!-- MODAL  -->
       <div id="modalConnexion" class="modal">
         <div class="modal-content">
           <h4>Connexion</h4>
           <div class="row">
-            <form>
+            <form method="post" action="{% url 'backend:login' %}">
+              {% csrf_token %}
               <div class="input-field col s12">
-                <input placeholder="Placeholder" id="first_name" type="text" class="validate">
+                <input placeholder="Placeholder" id="username" name="username" type="text" class="validate">
                 <label for="first_name">Pseudo</label>
               </div>
               <div class="input-field col s12">
-                <input id="password" type="password" class="validate">
+                <input id="password" name="password" type="password" class="validate">
                 <label for="password">Password</label>
               </div>
+              <input type="submit" value="login">
             </form>
           </div>
-        </div>
-        <div class="modal-footer">
-          <a href="#!" class=" modal-action modal-close waves-effect waves-green btn">Agree</a>
+          <div class="modal-footer">
+            <input type="submit" value="Se Connecter" class=" modal-action waves-effect waves-green btn"></input>
+          </div>
         </div>
       </div>
 
-      <div id="modalInscription" class="modal modal-fixed-footer">
+    <div id="modalInscription" class="modal modal-fixed-footer">
         <div class="modal-content">
           <h4>Inscription</h4>
           <div class="row">

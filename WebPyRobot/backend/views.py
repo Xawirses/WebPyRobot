@@ -7,16 +7,17 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from .models import UserProfile, Tank
-from .game.Game import Game, Robot
+ #from .game.Game import Game, Robot
 
 # Create your views here.
 
 
 def index(request):
     if request.user.is_authenticated:
-        return HttpResponse('page d un user connecté')
+        context = {'money' : 340 }
+        return render(request, "backend/accueil.html", context)
     else:
-        return HttpResponse('page index')
+        return render(request, "backend/index.html")
 
 
 @never_cache
@@ -38,8 +39,8 @@ def login(request):
                 'next': request.GET.get('next'),
                 'error': 'Your username and password didn\'t match. Please try again.'
             }
-            return render(request, 'backend/login.html', context)
-    return render(request, 'backend/login.html',  {'next': request.GET.get('next')})
+            return render(request, 'backend/index.html', context)
+    return render(request, 'backend/index.html',  {'next': request.GET.get('next')})
 
 
 @never_cache
@@ -97,7 +98,7 @@ def figthdetail(request, pk):
 
 @login_required
 def editor(request):
-    return HttpResponse('page de l editor')
+    return render(request, 'backend/editeur.html')
 
 
 @login_required
@@ -107,9 +108,13 @@ def editorDetail(request, pk):
 
 @login_required
 def market(request):
-    return HttpResponse('page du market')
+    return render(request, 'backend/boutique.html')
 
+@login_required
+def inventory(request):
+    return render(request, 'backend/inventaire.html')
 
 @login_required
 def help(request):
-    return HttpResponse('page du je suis perdu')
+    return render(request, 'backend/aide.html')
+

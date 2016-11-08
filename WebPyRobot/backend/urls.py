@@ -14,6 +14,7 @@ urlpatterns = [
     url(r'^fight/(?P<pk>[0-9]+)/$', views.figthdetail, name='fightDetail'),
     url(r'^editor/$', views.editor, name='editor'),
     url(r'^editor/(?P<pk>[0-9]+)/$', views.editorDetail, name='editorDetail'),
+    url(r'^inventory/$', views.inventory, name='inventory'),
     url(r'^market/$', views.market, name='market'),
     url(r'^help/$', views.help, name='help'),
 ]

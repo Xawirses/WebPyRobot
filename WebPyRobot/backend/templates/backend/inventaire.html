@@ -13,13 +13,13 @@
 
     <div class="navbar-fixed">
       <nav class="light-blue lighten-1" role="navigation">
-        <div class="nav-wrapper container"><a id="logo-container" href="accueil" class="brand-logo">Logo</a>
+        <div class="nav-wrapper container"><a id="logo-container" onclick="window.location.href='/'" class="brand-logo">Logo</a>
           <ul class="right hide-on-med-and-down">
             <li><a href="#">Combat<span class="new badge">2</span></a></li>
             <li><a href="#"><i class="material-icons left">attach_money</i>300</a></li>
             <li><a href="#"><i class="material-icons left">account_box</i>John Doe</a></li>
             <li><a href="#"><i class="material-icons">settings</i></a></li>
-            <li><a href="#"><i class="material-icons">power_settings_new</i></a></li>
+            <li><a style="cursor:pointer" onclick="window.location.href='/logout'"><i class="material-icons">power_settings_new</i></a></li>
           </ul>
 
           <ul id="nav-mobile" class="side-nav">
@@ -33,7 +33,7 @@
             <li><a class="waves-effect" href="#">Combat<span class="new badge">2</span></a></li>
             <li><a class="waves-effect" href="#"><i class="material-icons left">attach_money</i>300</a></li>
             <li><a class="waves-effect" href="#"><i class="material-icons left">settings</i>Paramêtre</a></li>
-            <li><a class="waves-effect" href="#"><i class="material-icons left">power_settings_new</i>Déconecter</a></li>
+            <li><a class="waves-effect" onclick="window.location.href='/logout'"><i class="material-icons left">power_settings_new</i>Déconecter</a></li>
             <li><div class="divider"></div></li>
 
             {% include 'backend/mobilNav_Link.html' %}
