@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="{% static 'theme/material.css' %}">
   </head>
   <body>
-    {% include 'backend/header.html' %}
+    {% include 'backend/header.html' with moneyIn=money user=username%}
     <main class="container">
       <div class="section">
         <div class="row">

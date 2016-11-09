@@ -1,3 +1,4 @@
+from dbus.service import Object
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
@@ -14,7 +15,8 @@ from .models import UserProfile, Tank
 
 def index(request):
     if request.user.is_authenticated:
-        context = {'money' : 340,
+        context = {'money' : UserProfile.objects.get(user=request.user).money,
+                   'username' : request.user,
                    'pageIn' : 'accueil' }
         return render(request, "backend/accueil.html", context)
     else:
@@ -99,7 +101,9 @@ def figthdetail(request, pk):
 
 @login_required
 def editor(request):
-    context = {'pageIn': 'editor'}
+    context = {'money' : UserProfile.objects.get(user=request.user).money,
+                'username' : request.user,
+               'pageIn': 'editor'}
     return render(request, 'backend/editeur.html',context)
 
 
@@ -110,16 +114,22 @@ def editorDetail(request, pk):
 
 @login_required
 def market(request):
-    context = {'pageIn': 'market'}
+    context = {'money' : UserProfile.objects.get(user=request.user).money,
+               'username' : request.user,
+               'pageIn': 'market'}
     return render(request, 'backend/boutique.html',context)
 
 @login_required
 def inventory(request):
-    context = {'pageIn': 'inventory'}
+    context = {'money' : UserProfile.objects.get(user=request.user).money,
+               'username' : request.user,
+               'pageIn': 'inventory'}
     return render(request, 'backend/inventaire.html',context)
 
 @login_required
 def help(request):
-    context = {'pageIn': 'help'}
+    context = {'money' : UserProfile.objects.get(user=request.user).money,
+               'username' : request.user,
+               'pageIn': 'help'}
     return render(request, 'backend/aide.html',context)
 

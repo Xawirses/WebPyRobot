@@ -53,34 +53,33 @@
 
         </div>
       </div>
-    <div id="modalInscription" class="modal modal-fixed-footer">
+    <div id="modalInscription" class="modal">
         <div class="modal-content">
-          <h4>Inscription</h4>
-          <div class="row">
-            <form >
-              <div class="input-field col s12">
-                <input placeholder="Placeholder" id="first_name" type="text" class="validate">
-                <label for="first_name">Pseudo</label>
-              </div>
-              <div class="input-field col s12">
-                <input id="email" type="email" class="validate">
-                <label for="email">Email</label>
-              </div>
-              <div class="input-field col s12">
-                <input id="password" type="password" class="validate">
-                <label for="password">Password</label>
-              </div>
-              <div class="input-field col s12">
-                <input id="password" type="password" class="validate">
-                <label for="password">Confirm Password</label>
-              </div>
+            <form action="{% url 'backend:signUp' %}" method="post">
+            {% csrf_token %}
+                <h4>Inscription</h4>
+                <div class="row">
+
+                    <div class="input-field col s12">
+                        <input id="first_name" type="text" class="validate">
+                        <label for="first_name">Pseudo</label>
+                    </div>
+                    <div class="input-field col s12">
+                        <input id="email" type="email" class="validate">
+                        <label for="email">Email</label>
+                    </div>
+                    <div class="input-field col s12">
+                        <input id="password" type="password" class="validate">
+                        <label for="password">Password</label>
+                    </div>
+                </div>
+                    
+                <div class="modal-footer">
+                    <input type="submit" value="S'inscrire" class=" modal-action waves-effect waves-green btn"></input>
+                </div>
             </form>
-          </div>
         </div>
-        <div class="modal-footer">
-          <a href="#!" class=" modal-action modal-close waves-effect waves-green btn">Agree</a>
-        </div>
-      </div>
+    </div>
 
     <main class="container">
       <div class="section">
@@ -127,8 +126,6 @@
         </div>
       </div>
     </main>
-
     {% include 'backend/footer.html' %}
-
     </body>
 </html>
