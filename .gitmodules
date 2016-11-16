@@ -1,0 +1,3 @@
+[submodule "WebPyRobot/backend/static/codemirror"]
+	path = WebPyRobot/backend/static/codemirror
+	url = https://github.com/codemirror/CodeMirror.git
