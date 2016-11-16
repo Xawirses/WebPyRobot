@@ -9,6 +9,7 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from .models import UserProfile, Tank
  #from .game.Game import Game, Robot
+import signal
 
 # Create your views here.
 
@@ -99,12 +100,46 @@ def figthdetail(request, pk):
     return HttpResponse('page figthDetails pour ' + pk)
 
 
+
 @login_required
 def editor(request):
-    context = {'money' : UserProfile.objects.get(user=request.user).money,
-                'username' : request.user,
-               'pageIn': 'editor'}
-    return render(request, 'backend/editeur.html',context)
+    # if request.method == 'POST':
+    #     return HttpResponse("c est posté")
+    # context = {
+    #     'money': UserProfile.objects.get(user=request.user).money,
+    #     'username': request.user,
+    #     'pageIn': 'editor',
+    # }
+    # return render(request, 'backend/editeur.html', context)
+    def plus(x):
+        y = x
+        return x + 2
+    def exit(x):
+        return 1
+    class AlarmExeccpt(Exception):
+        pass
+    def alarmHandler(signum, frame):
+        raise AlarmExeccpt
+    y = 1
+    str = """
+def f(x):
+    x = x + 1
+    return x
+print ('coucou')
+y = plus(y)
+while 42:
+    pass
+print (y)
+"""
+    signal.signal(signal.SIGALRM, alarmHandler)
+    signal.alarm(1)
+    try:
+        exec(str)
+        signal.alarm(0)
+    except AlarmExeccpt:
+        pass
+    signal.signal(signal.SIGALRM, signal.SIG_IGN)
+    print (y)
 
 
 @login_required
