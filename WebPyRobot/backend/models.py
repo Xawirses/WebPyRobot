@@ -22,16 +22,10 @@ class Ia(models.Model):
         return self.name
 
 
-class Equipment(models.Model):
+class Weapon(models.Model):
+
     name = models.CharField(max_length=200)
     price = models.PositiveIntegerField()
-
-    def __str__(self):
-        return self.name
-
-
-class Weapon(models.Model):
-    equipment = models.OneToOneField(Equipment, on_delete=models.CASCADE)
     attackValue = models.PositiveIntegerField()
     range = models.PositiveIntegerField()
 
@@ -40,7 +34,8 @@ class Weapon(models.Model):
 
 
 class Armor(models.Model):
-    equipment = models.OneToOneField(Equipment, on_delete=models.CASCADE)
+    name = models.CharField(max_length=200)
+    price = models.PositiveIntegerField()
     armorValue = models.PositiveIntegerField()
 
     def __str__(self):
@@ -48,7 +43,8 @@ class Armor(models.Model):
 
 
 class Caterpillar(models.Model):
-    equipment = models.OneToOneField(Equipment, on_delete=models.CASCADE)
+    name = models.CharField(max_length=200)
+    price = models.PositiveIntegerField()
     moveValue = models.PositiveIntegerField()
 
     def __str__(self):
@@ -56,7 +52,8 @@ class Caterpillar(models.Model):
 
 
 class NavSystem(models.Model):
-    equipment = models.OneToOneField(Equipment, on_delete=models.CASCADE)
+    name = models.CharField(max_length=200)
+    price = models.PositiveIntegerField()
     actionValue = models.PositiveIntegerField()
 
     def __str__(self):
