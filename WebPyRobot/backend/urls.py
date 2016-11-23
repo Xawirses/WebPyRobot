@@ -10,11 +10,13 @@ urlpatterns = [
     url(r'^logout/$', views.logout, name='logout'),
     url(r'^signup/$', views.SignUp.as_view(), name='signUp'),
     url(r'^signup/thanks/$', views.thanks, name='signUpThanks'),
+    url(r'^password_change$', views.password_change, name='password_change'),
     url(r'^fight/$', views.fight, name='fight'),
     url(r'^fight/(?P<pk>[0-9]+)/$', views.figthdetail, name='fightDetail'),
     url(r'^editor/$', views.editor, name='editor'),
     url(r'^editor/(?P<pk>[0-9]+)/$', views.editorDetail, name='editorDetail'),
     url(r'^inventory/$', views.inventory, name='inventory'),
     url(r'^market/$', views.market, name='market'),
+    url(r'^parameter/$', views.parameter, name='parameter'),
     url(r'^help/$', views.help, name='help'),
 ]

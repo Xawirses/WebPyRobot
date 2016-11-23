@@ -20,47 +20,46 @@ class Ia(models.Model):
 
     def __str__(self):
         return self.name
+    def getIaByOwner(user):
+        return Ia.objects.get(owner=user)
 
 
-class Equipment(models.Model):
+class Weapon(models.Model):
+
     name = models.CharField(max_length=200)
     price = models.PositiveIntegerField()
+    attackValue = models.PositiveIntegerField()
+    range = models.PositiveIntegerField()
 
     def __str__(self):
         return self.name
 
 
-class Weapon(models.Model):
-    equipment = models.OneToOneField(Equipment, on_delete=models.CASCADE)
-    attackValue = models.PositiveIntegerField()
-    range = models.PositiveIntegerField()
-
-    def __str__(self):
-        return self.equipment.__str__()
-
-
 class Armor(models.Model):
-    equipment = models.OneToOneField(Equipment, on_delete=models.CASCADE)
+    name = models.CharField(max_length=200)
+    price = models.PositiveIntegerField()
     armorValue = models.PositiveIntegerField()
 
     def __str__(self):
-        return self.equipment.__str__()
+        return self.name
 
 
 class Caterpillar(models.Model):
-    equipment = models.OneToOneField(Equipment, on_delete=models.CASCADE)
+    name = models.CharField(max_length=200)
+    price = models.PositiveIntegerField()
     moveValue = models.PositiveIntegerField()
 
     def __str__(self):
-        return self.equipment.__str__()
+        return self.name
 
 
 class NavSystem(models.Model):
-    equipment = models.OneToOneField(Equipment, on_delete=models.CASCADE)
+    name = models.CharField(max_length=200)
+    price = models.PositiveIntegerField()
     actionValue = models.PositiveIntegerField()
 
     def __str__(self):
-        return self.equipment.__str__()
+        return self.name
 
 
 class Tank(models.Model):

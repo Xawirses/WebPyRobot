@@ -1,4 +1,6 @@
 from dbus.service import Object
+from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth.forms import PasswordChangeForm
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
@@ -7,8 +9,14 @@ from django.views.generic.edit import FormView
 from django.urls import reverse
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
-from .models import UserProfile, Tank
+
+from backend.models import Weapon, Armor, Caterpillar, NavSystem
+from .models import UserProfile, Tank, Ia
  #from .game.Game import Game, Robot
+
+from .forms import SignUpForm
+from .forms import ChangeDataForm
+
 
 # Create your views here.
 
@@ -20,7 +28,9 @@ def index(request):
                    'pageIn' : 'accueil' }
         return render(request, "backend/accueil.html", context)
     else:
-        return render(request, "backend/index.html")
+        form = SignUpForm()
+        context = { 'form' : form }
+        return render(request, "backend/index.html",context)
 
 
 @never_cache
@@ -38,13 +48,14 @@ def login(request):
             urlnext = request.POST.get('next', reverse('backend:index'))
             return redirect(urlnext)
         else:
+            form = SignUpForm()
             context = {
+                'form': form,
                 'next': request.GET.get('next'),
                 'error': 'Your username and password didn\'t match. Please try again.'
             }
             return render(request, 'backend/index.html', context)
     return render(request, 'backend/index.html',  {'next': request.GET.get('next')})
-
 
 @never_cache
 def logout(request):
@@ -52,20 +63,14 @@ def logout(request):
     logout(request)
     return redirect(reverse('backend:index'))
 
-
 class SignUp (FormView):
     from .forms import SignUpForm
-    template_name = 'backend/signUp.html'
+    template_name = 'backend/index.html'
     form_class = SignUpForm
 
     def get_success_url(self):
         self.success_url = reverse('backend:signUpThanks')
         return super().get_success_url()
-
-    def get(self, request, *args, **kwargs):
-        from django.contrib.auth import logout
-        logout(request)
-        return super().get(request, *args, **kwargs)
 
     def form_valid(self, form):
         email = form.cleaned_data['email']
@@ -76,13 +81,14 @@ class SignUp (FormView):
         except ObjectDoesNotExist:
             user = User.objects.create_user(username, email, password)
             UserProfile(user=user, money=0).save()
+            #create ia file default
+            userProfile = UserProfile.objects.get(user=user)
+            Ia.objects.create(owner=userProfile, name=username+"\'s ia", text="1+1")
             return super(SignUp, self).form_valid(form)
         return super(SignUp, self).form_invalid(form)
 
-
 def thanks(request):
-    return HttpResponse('Merci de c etre inscrit !')
-
+    return render(request,"backend/thanks.html")
 
 @login_required
 def fight(request):
@@ -93,30 +99,53 @@ def fight(request):
     game.process()
     return HttpResponse('page de fight')
 
+@login_required
+def password_change(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(user=request.user, data=request.POST)
+        print("ICI")
+        if form.is_valid():
+            form.save()
+            update_session_auth_hash(request, form.user)
+            context = {'money': UserProfile.objects.get(user=request.user).money,
+                       'username': request.user,
+                       'pageIn': 'accueil',
+                       'returnChange': "Les Informations ont bien été enregistré"}
+            return render(request, "backend/accueil.html", context)
+        else:
+            context = {'money': UserProfile.objects.get(user=request.user).money,
+                       'username': request.user,
+                       'pageIn': 'accueil',
+                       'returnChange': "Erreur"}
+            return render(request, "backend/accueil.html", context)
 
 @login_required
 def figthdetail(request, pk):
     return HttpResponse('page figthDetails pour ' + pk)
 
-
 @login_required
 def editor(request):
-    context = {'money' : UserProfile.objects.get(user=request.user).money,
+    userProfile = UserProfile.objects.get(user=request.user)
+    context = { 'money' : UserProfile.objects.get(user=request.user).money,
                 'username' : request.user,
-               'pageIn': 'editor'}
+                'pageIn': 'editor',
+                'ia': Ia.getIaByOwner(userProfile) }
     return render(request, 'backend/editeur.html',context)
-
 
 @login_required
 def editorDetail(request, pk):
     return HttpResponse('page de l editor pour ' + pk)
 
-
 @login_required
 def market(request):
     context = {'money' : UserProfile.objects.get(user=request.user).money,
                'username' : request.user,
-               'pageIn': 'market'}
+               'pageIn': 'market',
+               'weapons': Weapon.objects.all(),
+               'armors': Armor.objects.all(),
+               'caterpillars': Caterpillar.objects.all(),
+               'navSys': NavSystem.objects.all()
+               }
     return render(request, 'backend/boutique.html',context)
 
 @login_required
@@ -125,6 +154,17 @@ def inventory(request):
                'username' : request.user,
                'pageIn': 'inventory'}
     return render(request, 'backend/inventaire.html',context)
+
+@login_required
+def parameter(request):
+
+    form = ChangeDataForm()
+    form.fields['email'].initial = request.user.email
+    form.fields['username'].initial= request.user.username
+    context = {'money' : UserProfile.objects.get(user=request.user).money,
+               'username' : request.user,
+               'form': form}
+    return render(request, 'backend/parameter.html',context)
 
 @login_required
 def help(request):
