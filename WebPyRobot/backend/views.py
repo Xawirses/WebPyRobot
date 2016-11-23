@@ -7,9 +7,7 @@ from django.views.generic.edit import FormView
 from django.urls import reverse
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
-from .models import UserProfile, Tank
- #from .game.Game import Game, Robot
-import signal
+from .models import UserProfile, Tank, Ia
 
 # Create your views here.
 
@@ -87,11 +85,6 @@ def thanks(request):
 
 @login_required
 def fight(request):
-    tank = Tank.objects.get(owner_id=1)
-    r1 = Robot(tank)
-    r2 = Robot(tank)
-    game = Game(r1, r2)
-    game.process()
     return HttpResponse('page de fight')
 
 
@@ -100,46 +93,25 @@ def figthdetail(request, pk):
     return HttpResponse('page figthDetails pour ' + pk)
 
 
-
 @login_required
 def editor(request):
-    # if request.method == 'POST':
-    #     return HttpResponse("c est posté")
-    # context = {
-    #     'money': UserProfile.objects.get(user=request.user).money,
-    #     'username': request.user,
-    #     'pageIn': 'editor',
-    # }
-    # return render(request, 'backend/editeur.html', context)
-    def plus(x):
-        y = x
-        return x + 2
-    def exit(x):
-        return 1
-    class AlarmExeccpt(Exception):
-        pass
-    def alarmHandler(signum, frame):
-        raise AlarmExeccpt
-    y = 1
-    str = """
-def f(x):
-    x = x + 1
-    return x
-print ('coucou')
-y = plus(y)
-while 42:
-    pass
-print (y)
-"""
-    signal.signal(signal.SIGALRM, alarmHandler)
-    signal.alarm(1)
-    try:
-        exec(str)
-        signal.alarm(0)
-    except AlarmExeccpt:
-        pass
-    signal.signal(signal.SIGALRM, signal.SIG_IGN)
-    print (y)
+    from .forms import CodeForm
+    userprofile = UserProfile.objects.get(user=request.user)
+    ia = Ia.objects.get(owner=userprofile)
+    if request.method == 'POST':
+        code_form = CodeForm(request.POST)
+        if code_form.is_valid():
+            useria = code_form.cleaned_data['ia']
+            ia.text = useria
+            ia.save()
+
+    context = {
+        'money': UserProfile.objects.get(user=request.user).money,
+        'username': request.user,
+        'pageIn': 'editor',
+        'code': ia.text
+    }
+    return render(request, 'backend/editeur.html', context)
 
 
 @login_required

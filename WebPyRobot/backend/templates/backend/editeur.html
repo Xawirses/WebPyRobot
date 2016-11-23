@@ -71,7 +71,7 @@
                 <div class="pad col s12 m12 l12">
                     <form id="code" action="{% url 'backend:editor' %}" method="post">
                         {% csrf_token %}
-                        <textarea name="ia" id="ia" cols="40" rows="10"></textarea>
+                        <textarea name="ia" id="ia" cols="40" rows="10">{{ code }}</textarea>
                     </form>
                 </div>
               </div>

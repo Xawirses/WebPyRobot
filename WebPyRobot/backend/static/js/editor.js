@@ -15,7 +15,6 @@
             $("#code").submit();
         });
         $("#code").submit(function () {
-            alert("coucou");
             cm.save();
         });
     });
