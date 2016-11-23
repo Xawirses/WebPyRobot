@@ -1,0 +1,116 @@
+[
+  {
+    "model": "backend.Weapon",
+    "pk": 1,
+    "fields": {
+      "name": "Canon #1",
+      "price": "300",
+      "attackValue": "20",
+      "range": "15"
+    }
+  },
+  {
+    "model": "backend.Weapon",
+    "pk": 2,
+    "fields": {
+      "name": "Canon #2",
+      "price": "600",
+      "attackValue": "60",
+      "range": "25"
+    }
+  },
+  {
+    "model": "backend.Weapon",
+    "pk": 3,
+    "fields": {
+      "name": "Canon #3",
+      "price": "1000",
+      "attackValue": "80",
+      "range": "40"
+    }
+  },
+
+  {
+    "model": "backend.Armor",
+    "pk": 1,
+    "fields": {
+      "name": "Blindage #1",
+      "price": "300",
+      "armorValue": "20"
+    }
+  },
+  {
+    "model": "backend.Armor",
+    "pk": 2,
+    "fields": {
+      "name": "Blindage #2",
+      "price": "600",
+      "armorValue": "60"
+    }
+  },
+  {
+    "model": "backend.Armor",
+    "pk": 3,
+    "fields": {
+      "name": "Blindage #3",
+      "price": "1000",
+      "armorValue": "80"
+    }
+  },
+
+  {
+    "model": "backend.Caterpillar",
+    "pk": 1,
+    "fields": {
+      "name": "Rouage #1",
+      "price": "300",
+      "moveValue": "2"
+    }
+  },
+  {
+    "model": "backend.Caterpillar",
+    "pk": 2,
+    "fields": {
+      "name": "Rouage #2",
+      "price": "600",
+      "moveValue": "5"
+    }
+  },
+  {
+    "model": "backend.Caterpillar",
+    "pk": 3,
+    "fields": {
+      "name": "Rouage #3",
+      "price": "1000",
+      "moveValue": "8"
+    }
+  },
+
+  {
+    "model": "backend.NavSystem",
+    "pk": 1,
+    "fields": {
+      "name": "Process #1",
+      "price": "300",
+      "actionValue": "2"
+    }
+  },
+  {
+    "model": "backend.NavSystem",
+    "pk": 2,
+    "fields": {
+      "name": "Process #2",
+      "price": "600",
+      "actionValue": "4"
+    }
+  },
+  {
+    "model": "backend.NavSystem",
+    "pk": 3,
+    "fields": {
+      "name": "Process #3",
+      "price": "1000",
+      "actionValue": "6"
+    }
+  }
+]

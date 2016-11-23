@@ -29,127 +29,49 @@
                   </ul>
                 </div>
                 <div id="Canon" class="col s12 row">
-
+                    {% for weapon in weapons %}
                   <div class="card-panel hoverable col s4 grey lighten-5 ">
                     <div class="row">
                       <div class="col s12 center-align"><img src="{% static 'img/no_img.jpg' %}" class="pad equipement-icon responsive-img"></div>
-                      <div class="col s12 center-align"><span class="black-text">Canon #1</span></div>
+                      <div class="col s12 center-align"><span class="black-text">{{ weapon.name }}</span></div>
                     </div>
                   </div>
-
-                  <div class="card-panel hoverable col s4 grey lighten-5 ">
-                    <div class="row">
-                      <div class="col s12 center-align"><img src="{% static 'img/no_img.jpg' %}" class="pad equipement-icon responsive-img"></div>
-                      <div class="col s12 center-align"><span class="black-text">Canon #2</span></div>
-                    </div>
-                  </div>
-
-                  <div class="card-panel hoverable col s4 grey lighten-5 ">
-                    <div class="row">
-                      <div class="col s12 center-align"><img src="{% static 'img/no_img.jpg' %}" class="pad equipement-icon responsive-img"></div>
-                      <div class="col s12 center-align"><span class="black-text">Canon #3</span></div>
-                    </div>
-                  </div>
-
-                  <div class="card-panel hoverable col s4 grey lighten-5 ">
-                    <div class="row">
-                      <div class="col s12 center-align"><img src="{% static 'img/no_img.jpg' %}" class="pad equipement-icon responsive-img"></div>
-                      <div class="col s12 center-align"><span class="black-text">Canon #4</span></div>
-                    </div>
-                  </div>
-
-                  <div class="card-panel hoverable col s4 grey lighten-5 ">
-                    <div class="row">
-                      <div class="col s12 center-align"><img src="{% static 'img/no_img.jpg' %}" class="pad equipement-icon responsive-img"></div>
-                      <div class="col s12 center-align"><span class="black-text">Canon #5</span></div>
-                    </div>
-                  </div>
-
-                  <div class="card-panel hoverable col s4 grey lighten-5 ">
-                    <div class="row">
-                      <div class="col s12 center-align"><img src="{% static 'img/no_img.jpg' %}" class="pad equipement-icon responsive-img"></div>
-                      <div class="col s12 center-align"><span class="black-text">Canon #6</span></div>
-                    </div>
-                  </div>
+                    {% endfor %}
 
                 </div>
                 <div id="Blindage" class="col s12">
+                    {% for armor in armors%}
                   <div class="card-panel hoverable col s4 grey lighten-5 ">
                     <div class="row">
                       <div class="col s12 center-align"><img src="{% static 'img/no_img.jpg' %}" class="pad equipement-icon responsive-img"></div>
-                      <div class="col s12 center-align"><span class="black-text">Blindage #1</span></div>
+                      <div class="col s12 center-align"><span class="black-text">{{ armor.name }}</span></div>
                     </div>
                   </div>
-
-                  <div class="card-panel hoverable col s4 grey lighten-5 ">
-                    <div class="row">
-                      <div class="col s12 center-align"><img src="{% static 'img/no_img.jpg' %}" class="pad equipement-icon responsive-img"></div>
-                      <div class="col s12 center-align"><span class="black-text">Blindage #2</span></div>
-                    </div>
-                  </div>
-
-                  <div class="card-panel hoverable col s4 grey lighten-5 ">
-                    <div class="row">
-                      <div class="col s12 center-align"><img src="{% static 'img/no_img.jpg' %}" class="pad equipement-icon responsive-img"></div>
-                      <div class="col s12 center-align"><span class="black-text">Blindage #3</span></div>
-                    </div>
-                  </div>
-
-                  <div class="card-panel hoverable col s4 grey lighten-5 ">
-                    <div class="row">
-                      <div class="col s12 center-align"><img src="{% static 'img/no_img.jpg' %}" class="pad equipement-icon responsive-img"></div>
-                      <div class="col s12 center-align"><span class="black-text">Blindage #4</span></div>
-                    </div>
-                  </div>
-
-                  <div class="card-panel hoverable col s4 grey lighten-5 ">
-                    <div class="row">
-                      <div class="col s12 center-align"><img src="{% static 'img/no_img.jpg' %}" class="pad equipement-icon responsive-img"></div>
-                      <div class="col s12 center-align"><span class="black-text">Blindage #5</span></div>
-                    </div>
-                  </div>
-
-                  <div class="card-panel hoverable col s4 grey lighten-5 ">
-                    <div class="row">
-                      <div class="col s12 center-align"><img src="{% static 'img/no_img.jpg' %}" class="pad equipement-icon responsive-img"></div>
-                      <div class="col s12 center-align"><span class="black-text">Blindage #6</span></div>
-                    </div>
-                  </div>
+                    {% endfor %}
 
                 </div>
                 <div id="Chenille" class="col s12">
-
-                  <div class="card-panel hoverable col s4 grey lighten-5">
+                    {% for caterpillar in caterpillars %}
+                  <div class="card-panel hoverable col s4 grey lighten-5 ">
                     <div class="row">
                       <div class="col s12 center-align"><img src="{% static 'img/no_img.jpg' %}" class="pad equipement-icon responsive-img"></div>
-                      <div class="col s12 center-align"><span class="black-text">Chenille #1</span></div>
+                      <div class="col s12 center-align"><span class="black-text">{{ caterpillar.name }}</span></div>
                     </div>
                   </div>
-
-                  <div class="card-panel hoverable col s4 grey lighten-5">
-                    <div class="row">
-                      <div class="col s12 center-align"><img src="{% static 'img/no_img.jpg' %}" class="pad equipement-icon responsive-img"></div>
-                      <div class="col s12 center-align"><span class="black-text">Chenille #2</span></div>
-                    </div>
-                  </div>
+                    {% endfor %}
 
                 </div>
 
                 <div id="info" class="col s12">
 
-                  <div class="card-panel hoverable col s4 grey lighten-5">
+                    {% for navSyst in navSys %}
+                  <div class="card-panel hoverable col s4 grey lighten-5 ">
                     <div class="row">
                       <div class="col s12 center-align"><img src="{% static 'img/no_img.jpg' %}" class="pad equipement-icon responsive-img"></div>
-                      <div class="col s12 center-align"><span class="black-text">info #1</span></div>
+                      <div class="col s12 center-align"><span class="black-text">{{ navSyst.name }}</span></div>
                     </div>
                   </div>
-
-                  <div class="card-panel hoverable col s4 grey lighten-5">
-                    <div class="row">
-                      <div class="col s12 center-align"><img src="{% static 'img/no_img.jpg' %}" class="pad equipement-icon responsive-img"></div>
-                      <div class="col s12 center-align"><span class="black-text">info #2</span></div>
-                    </div>
-                  </div>
+                    {% endfor %}
 
                 </div>
               </div>

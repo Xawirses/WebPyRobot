@@ -20,6 +20,8 @@ class Ia(models.Model):
 
     def __str__(self):
         return self.name
+    def getIaByOwner(user):
+        return Ia.objects.get(owner=user)
 
 
 class Weapon(models.Model):
@@ -30,7 +32,7 @@ class Weapon(models.Model):
     range = models.PositiveIntegerField()
 
     def __str__(self):
-        return self.equipment.__str__()
+        return self.name
 
 
 class Armor(models.Model):
@@ -39,7 +41,7 @@ class Armor(models.Model):
     armorValue = models.PositiveIntegerField()
 
     def __str__(self):
-        return self.equipment.__str__()
+        return self.name
 
 
 class Caterpillar(models.Model):
@@ -48,7 +50,7 @@ class Caterpillar(models.Model):
     moveValue = models.PositiveIntegerField()
 
     def __str__(self):
-        return self.equipment.__str__()
+        return self.name
 
 
 class NavSystem(models.Model):
@@ -57,7 +59,7 @@ class NavSystem(models.Model):
     actionValue = models.PositiveIntegerField()
 
     def __str__(self):
-        return self.equipment.__str__()
+        return self.name
 
 
 class Tank(models.Model):
