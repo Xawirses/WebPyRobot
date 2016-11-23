@@ -9,6 +9,7 @@ class Robot(object):
         self.__robotId = id
         self.__life = 10
         self.__armor = 1
+        self.__range = 5
         self.__pm = 3
         self.__pa = 1
 
@@ -20,14 +21,14 @@ class Robot(object):
             return self.__life;
         def getArmor():
             return self.__armor;
+        def getRange():
+            return self.__range;
         def getPM():
             return self.__pm;
         def getPA():
             return self.__pa;
         def setLife(life):
             self.__life = life;
-        def setArmor(armor):
-            self.__armor = armor;
         def setPM(pm):
             self.__pm = pm;
         def setPA(pa):
@@ -50,13 +51,13 @@ class Game(object):
         return numCell - (self.__size * (numCell / self.__size))
 
     def getCellPosY(numCell):
-        return 1
+        return numCell / self.__size
 
     def getCellDistance(numCellA, numCellB):
         return (abs(getCellPosX(numCellB) - getCellPosX(numCellA)) + abs(getCellPosY(numCellB) - getCellPosY(numCellA)) )
 
     def getCellFromXY(x, y):
-        return 1    
+        return y*self.__size + x
 
     def getPosition(TankID):
         for i in range(256):
@@ -74,13 +75,10 @@ class Game(object):
         return self.__robots[TankID].getPA()
 
     def getRange(TankId):
-        return 1
+        return self.__robots[TankID].getRange()
 
     def moveTank(NumCell):
         return 1
 
     def shot():
-        return 1
-
-    def process(self):
         return 1
