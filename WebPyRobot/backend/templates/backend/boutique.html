@@ -28,9 +28,9 @@
                     <li class="tab col s4"><a href="#info">Système</a></li>
                   </ul>
                 </div>
-                <div id="Canon" class="col s12 row">
+                <div id="Canon" class="col s12">
                     {% for weapon in weapons %}
-                  <div class="card-panel hoverable col s4 grey lighten-5 ">
+                  <div style="cursor:pointer" class="card-panel hoverable col s4 grey lighten-5 openCard" id="weapon{{ weapon.pk }}">
                     <div class="row">
                       <div class="col s12 center-align"><img src="{% static 'img/no_img.jpg' %}" class="pad equipement-icon responsive-img"></div>
                       <div class="col s12 center-align"><span class="black-text">{{ weapon.name }}</span></div>
@@ -41,7 +41,7 @@
                 </div>
                 <div id="Blindage" class="col s12">
                     {% for armor in armors%}
-                  <div class="card-panel hoverable col s4 grey lighten-5 ">
+                  <div style="cursor:pointer" class="card-panel hoverable col s4 grey lighten-5 openCard" id="armor{{ armor.pk }}">
                     <div class="row">
                       <div class="col s12 center-align"><img src="{% static 'img/no_img.jpg' %}" class="pad equipement-icon responsive-img"></div>
                       <div class="col s12 center-align"><span class="black-text">{{ armor.name }}</span></div>
@@ -52,7 +52,7 @@
                 </div>
                 <div id="Chenille" class="col s12">
                     {% for caterpillar in caterpillars %}
-                  <div class="card-panel hoverable col s4 grey lighten-5 ">
+                  <div style="cursor:pointer" class="card-panel hoverable col s4 grey lighten-5 openCard" id="caterpillar{{ caterpillar.pk }}">
                     <div class="row">
                       <div class="col s12 center-align"><img src="{% static 'img/no_img.jpg' %}" class="pad equipement-icon responsive-img"></div>
                       <div class="col s12 center-align"><span class="black-text">{{ caterpillar.name }}</span></div>
@@ -61,11 +61,10 @@
                     {% endfor %}
 
                 </div>
-
                 <div id="info" class="col s12">
 
                     {% for navSyst in navSys %}
-                  <div class="card-panel hoverable col s4 grey lighten-5 ">
+                  <div style="cursor:pointer" class="card-panel hoverable col s4 grey lighten-5 openCard" id="navSyst{{ navSyst.pk }}">
                     <div class="row">
                       <div class="col s12 center-align"><img src="{% static 'img/no_img.jpg' %}" class="pad equipement-icon responsive-img"></div>
                       <div class="col s12 center-align"><span class="black-text">{{ navSyst.name }}</span></div>
@@ -77,20 +76,66 @@
               </div>
               <div class="pad col s12 m4 l4 ">
 
-                <div class="card">
-                  <div class="card-image">
-                    <img src="{% static 'img/galaxy.jpg' %}">
-                    <span class="card-title">Canon #1</span>
-                  </div>
-                  <div class="card-content">
-                    <h5>Statistiques</h5>
-                    <p>Description Canon #1</p>
-                    <span> Prix : 100$</span>
-                  </div>
-                  <div class="card-action">
-                    <a class="waves-effect waves-light btn" href="#">Acheter</a>
-                  </div>
-                </div>
+                  {% for weapon in weapons %}
+                    <div class="card" id="cardweapon{{ weapon.pk }}">
+                      <div class="card-image">
+                        <img src="{% static 'img/galaxy.jpg' %}">
+                        <span class="card-title">{{ weapon.name }}</span>
+                      </div>
+                      <div class="card-content">
+                        <h5>Statistiques</h5>
+                        <span> Prix : {{ weapon.price }}$</span>
+                      </div>
+                      <div class="card-action">
+                        <a class="waves-effect waves-light btn" href="#">Acheter</a>
+                      </div>
+                    </div>
+                  {% endfor %}
+                  {% for armor in armors %}
+                    <div class="card" id="cardarmor{{ armor.pk }}">
+                      <div class="card-image">
+                        <img src="{% static 'img/galaxy.jpg' %}">
+                        <span class="card-title">{{ armor.name }}</span>
+                      </div>
+                      <div class="card-content">
+                        <h5>Statistiques</h5>
+                        <span> Prix : {{ armor.price }}$</span>
+                      </div>
+                      <div class="card-action">
+                        <a class="waves-effect waves-light btn" href="#">Acheter</a>
+                      </div>
+                    </div>
+                  {% endfor %}
+                  {% for caterpillar in caterpillars %}
+                    <div class="card" id="cardcaterpillar{{ caterpillar.pk }}">
+                      <div class="card-image">
+                        <img src="{% static 'img/galaxy.jpg' %}">
+                        <span class="card-title">{{ caterpillar.name }}</span>
+                      </div>
+                      <div class="card-content">
+                        <h5>Statistiques</h5>
+                        <span> Prix : {{ caterpillar.price }}$</span>
+                      </div>
+                      <div class="card-action">
+                        <a class="waves-effect waves-light btn" href="#">Acheter</a>
+                      </div>
+                    </div>
+                  {% endfor %}
+                  {% for navSyst in navSys %}
+                    <div class="card" id="cardnavSyst{{ navSyst.pk }}">
+                      <div class="card-image">
+                        <img src="{% static 'img/galaxy.jpg' %}">
+                        <span class="card-title">{{ navSyst.name }}</span>
+                      </div>
+                      <div class="card-content">
+                        <h5>Statistiques</h5>
+                        <span> Prix : {{ navSyst.price }}$</span>
+                      </div>
+                      <div class="card-action">
+                        <a class="waves-effect waves-light btn" href="#">Acheter</a>
+                      </div>
+                    </div>
+                  {% endfor %}
 
               </div>
             </div>
@@ -99,5 +144,6 @@
       </div>
     </main>
     {% include 'backend/footer.html' %}
+    <script src="{% static 'js/market.js' %}"></script>
   </body>
 </html>

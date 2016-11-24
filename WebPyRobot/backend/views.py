@@ -10,7 +10,7 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 
-from backend.models import Weapon, Armor, Caterpillar, NavSystem
+from backend.models import Weapon, Armor, Caterpillar, NavSystem, TypeItem, Inventory
 from .models import UserProfile, Tank, Ia
  #from .game.Game import Game, Robot
 
@@ -86,6 +86,7 @@ class SignUp (FormView):
             Ia.objects.create(owner=userProfile, name=username+"\'s ia", text="1+1")
             return super(SignUp, self).form_valid(form)
         return super(SignUp, self).form_invalid(form)
+
 
 def thanks(request):
     return render(request,"backend/thanks.html")

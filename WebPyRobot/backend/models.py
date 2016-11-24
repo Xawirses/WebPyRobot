@@ -73,4 +73,16 @@ class Tank(models.Model):
     def __str__(self):
         return self.owner.__str__()
 
+class TypeItem (models.Model):
+    name = models.CharField(max_length=200)
 
+    def __str__(self):
+        return self.name
+
+class Inventory (models.Model):
+    owner = models.ForeignKey(UserProfile)
+    item = models.PositiveIntegerField()
+    typeItem = models.ForeignKey(TypeItem)
+
+    def __str__(self):
+        return self.owner

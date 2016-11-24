@@ -112,5 +112,33 @@
       "price": "1000",
       "actionValue": "6"
     }
+  },
+  {
+    "model": "backend.TypeItem",
+    "pk": 1,
+    "fields": {
+      "name": "Weapon"
+    }
+  },
+  {
+    "model": "backend.TypeItem",
+    "pk": 2,
+    "fields": {
+      "name": "Armor"
+    }
+  },
+  {
+    "model": "backend.TypeItem",
+    "pk": 3,
+    "fields": {
+      "name": "Caterpillar"
+    }
+  },
+  {
+    "model": "backend.TypeItem",
+    "pk": 4,
+    "fields": {
+      "name": "NavSystem"
+    }
   }
 ]
