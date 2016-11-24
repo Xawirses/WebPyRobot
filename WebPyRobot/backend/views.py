@@ -1,3 +1,5 @@
+from asyncio.tasks import wait
+
 from dbus.service import Object
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
@@ -17,6 +19,9 @@ from .models import UserProfile, Tank, Ia
 from .forms import SignUpForm
 from .forms import ChangeDataForm
 
+from .funct.funct import getItemByType
+
+
 
 # Create your views here.
 
@@ -26,7 +31,8 @@ def index(request):
         context = {'money' : UserProfile.objects.get(user=request.user).money,
                    'username' : request.user,
                    'pageIn' : 'accueil' ,
-                   'agression': UserProfile.objects.get(user=request.user).agression }
+                   'agression': UserProfile.objects.get(user=request.user).agression,
+                   'tank': Tank.objects.get(owner=UserProfile.objects.get(user=request.user))}
         return render(request, "backend/accueil.html", context)
     else:
         form = SignUpForm()
@@ -85,14 +91,21 @@ class SignUp (FormView):
             UserProfile(user=user, money=0).save()
             #create ia file default
             userProfile = UserProfile.objects.get(user=user)
-            Ia.objects.create(owner=userProfile, name=username+"\'s ia", text="1+1")
+            i = Ia.objects.create(owner=userProfile, name=username+"\'s Ia", text="1+1")
             #default Inventory
             Inventory.objects.create(owner=userProfile, item=1, typeItem=TypeItem(pk=1))
             Inventory.objects.create(owner=userProfile, item=1, typeItem=TypeItem(pk=2))
             Inventory.objects.create(owner=userProfile, item=1, typeItem=TypeItem(pk=3))
             Inventory.objects.create(owner=userProfile, item=1, typeItem=TypeItem(pk=4))
+            #init tank
+            w = getItemByType(1,TypeItem(pk=1))
+            a = getItemByType(1,TypeItem(pk=2))
+            c = getItemByType(1,TypeItem(pk=3))
+            n = getItemByType(1,TypeItem(pk=4))
+            Tank.objects.create(owner=userProfile, ia=i,weapon=w,armor=a,caterpillar=c,navSystem=n)
             return super(SignUp, self).form_valid(form)
         return super(SignUp, self).form_invalid(form)
+
 
 
 def thanks(request):

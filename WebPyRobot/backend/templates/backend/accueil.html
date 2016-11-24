@@ -25,9 +25,7 @@
             <div class="row z-depth-1 section padding-section">
               <div class="col s12 m6 l6 pad">
                 <h5>Introduction</h5>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam leo elit, tincidunt sit amet fermentum et, suscipit non quam. Praesent malesuada vitae odio a ultricies. Mauris eu pellentesque est. Curabitur efficitur scelerisque tempus.</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam leo elit, tincidunt sit amet fermentum et, suscipit non quam. Praesent malesuada vitae odio a ultricies. Mauris eu pellentesque est. Curabitur efficitur scelerisque tempus.</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam leo elit, tincidunt sit amet fermentum et, suscipit non quam. Praesent malesuada vitae odio a ultricies. Mauris eu pellentesque est. Curabitur efficitur scelerisque tempus.</p>
+                <img class="responsive-img" style="margin-bottom: auto; margin-top: auto" src="{% static "img/tank.png" %}">
               </div>
               <div class="col s12 m6 l6 pad">
                 <div class="row z-depth-1 section padding-section">
@@ -53,7 +51,10 @@
                 <div class="row z-depth-1 section padding-section">
                   <div class="col s12 m12 l12 pad">
                     <h5>Statistique</h5>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam leo elit, tincidunt sit amet fermentum et, suscipit non quam. Praesent malesuada vitae odio a ultricies. Mauris eu pellentesque est. Curabitur efficitur scelerisque tempus.</p>
+                    <p class="left-align"><img class="responsive-img mini-img" src="{% static "img/svg_tank/sword.svg" %}"><span style="margin-left: 8%">Attaque = {{ tank.weapon.attackValue }}</span></p>
+                    <p class="left-align"><img class="responsive-img mini-img" src="{% static "img/svg_tank/shield.svg" %}"><span style="margin-left: 8%">Défense = {{ tank.armor.armorValue}}</span></p>
+                    <p class="left-align"><img class="responsive-img mini-img" src="{% static "img/svg_tank/boot.svg" %}"><span style="margin-left: 8%">Point de Movement = {{ tank.caterpillar.moveValue }}</span></p>
+                    <p class="left-align"><img class="responsive-img mini-img" src="{% static "img/svg_tank/circuit.svg" %}"><span style="margin-left: 8%">Point d'action = {{ tank.navSystem.actionValue  }}</span></p>
                   </div>
                 </div>
                 
@@ -62,16 +63,16 @@
             <div class="row z-depth-1 section padding-section">
               <div class="col s12 m8 l8 pad">
                 <h5>Equipement</h5>
-                <img class="responsive-img equipement-icon" src="{% static 'img/no_img.jpg' %}">
-                <img class="responsive-img equipement-icon" src="{% static 'img/no_img.jpg' %}">
-                <img class="responsive-img equipement-icon" src="{% static 'img/no_img.jpg' %}">
-                <img class="responsive-img equipement-icon" src="{% static 'img/no_img.jpg' %}">
+                <img class="responsive-img equipement-icon" src="/static/img/canon_svg/{{ tank.weapon.pathIcon }}">
+                <img class="responsive-img equipement-icon" src="/static/img/shield_svg/{{ tank.armor.pathIcon }}">
+                <img class="responsive-img equipement-icon" src="/static/img/caterpillar_svg/{{ tank.caterpillar.pathIcon }}">
+                <img class="responsive-img equipement-icon" src="/static/img/circuit_svg/{{ tank.navSystem.pathIcon }}">
               </div>
               <div class="col s12 m4 l4 pad">
                 <h5>Code IA</h5>
                 <div class="valign-wrapper">
                   <i class="large material-icons">insert_drive_file</i>
-                  <span>IA #1</span>
+                  <span>{{ tank.ia.name }}</span>
                 </div>
               </div>
             </div>
