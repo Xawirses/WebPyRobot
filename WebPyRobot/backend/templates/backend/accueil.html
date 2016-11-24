@@ -36,23 +36,23 @@
                   </div>
                   <div class="col s6 m6 l6 pad">
                     <h6>Agression Mode</h6>
-                    <div class="switch">
-                      <label>
-                        Off
-                        <input type="checkbox">
-                        <span class="lever"></span>
-                        On
-                      </label>
-                    </div>
+                    <form method="post" action="{% url 'backend:agression' %}">
+                    {% csrf_token %}
+                        <div class="switch" type="submit">
+                          <label>
+                            Off
+                            <input type="checkbox" typeof="submit" {% if agression %}checked{% endif %}>
+                            <span class="lever"></span>
+                            On
+                          </label>
+                        </div>
+                        <button class="btn-floating waves-effect waves-light" type="submit" name="action"><i class="material-icons right">send</i></button>
+                    </form>
                   </div>
                 </div>
                 <div class="row z-depth-1 section padding-section">
-                  <div class="col s12 m6 l6 pad">
+                  <div class="col s12 m12 l12 pad">
                     <h5>Statistique</h5>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam leo elit, tincidunt sit amet fermentum et, suscipit non quam. Praesent malesuada vitae odio a ultricies. Mauris eu pellentesque est. Curabitur efficitur scelerisque tempus.</p>
-                  </div>
-                  <div class="col s12 m6 l6 pad">
-                    <h5>Caractéristiques</h5>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam leo elit, tincidunt sit amet fermentum et, suscipit non quam. Praesent malesuada vitae odio a ultricies. Mauris eu pellentesque est. Curabitur efficitur scelerisque tempus.</p>
                   </div>
                 </div>

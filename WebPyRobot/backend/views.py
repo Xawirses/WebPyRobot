@@ -25,7 +25,8 @@ def index(request):
     if request.user.is_authenticated:
         context = {'money' : UserProfile.objects.get(user=request.user).money,
                    'username' : request.user,
-                   'pageIn' : 'accueil' }
+                   'pageIn' : 'accueil' ,
+                   'agression': UserProfile.objects.get(user=request.user).agression }
         return render(request, "backend/accueil.html", context)
     else:
         form = SignUpForm()
@@ -190,3 +191,10 @@ def help(request):
                'pageIn': 'help'}
     return render(request, 'backend/aide.html',context)
 
+@login_required
+def agression(request):
+    userProfile = UserProfile.objects.get(user=request.user)
+    agressionValue = userProfile.agression
+    userProfile.agression = not agressionValue
+    userProfile.save()
+    return redirect(reverse('backend:index'))

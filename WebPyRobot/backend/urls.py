@@ -19,4 +19,5 @@ urlpatterns = [
     url(r'^market/$', views.market, name='market'),
     url(r'^parameter/$', views.parameter, name='parameter'),
     url(r'^help/$', views.help, name='help'),
+    url(r'^agression/$', views.agression, name='agression'),
 ]

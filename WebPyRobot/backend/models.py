@@ -5,9 +5,11 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     money = models.PositiveIntegerField(default=0)
     avatar = models.ImageField(blank=True)
+    agression = models.BooleanField(default=False)
 
     def __str__(self):
         return self.user.username
+
     def __getInventory__(self):
         wep = Inventory.objects.filter(owner=self,typeItem=TypeItem(pk=1))
         wOut = []
