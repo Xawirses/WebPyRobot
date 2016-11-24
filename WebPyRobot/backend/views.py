@@ -1,5 +1,3 @@
-from asyncio.tasks import wait
-
 from dbus.service import Object
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
@@ -20,7 +18,6 @@ from .forms import SignUpForm
 from .forms import ChangeDataForm
 
 from .funct.funct import getItemByType
-
 
 
 # Create your views here.

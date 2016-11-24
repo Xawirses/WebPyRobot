@@ -1,7 +1,7 @@
 {% load static %}
 <header class="navbar-fixed">
       <nav class="light-blue lighten-1" role="navigation">
-        <div class="nav-wrapper container"><a id="logo-container" onclick="window.location.href='/'" class="brand-logo">Logo</a>
+        <div class="nav-wrapper container"><a id="logo-container" style="cursor:pointer" onclick="window.location.href='/'" class="brand-logo"><img class="img-logo" src="{% static "img/svg_tank/tank.svg" %}">  WebPyRobot</a>
           <ul class="right hide-on-med-and-down">
             <li><a href="#">Combat<span class="new badge">2</span></a></li>
             <li><a href="#"><i class="material-icons left">attach_money</i>{{ moneyIn }}</a></li>
