@@ -80,10 +80,16 @@ class SignUp (FormView):
             User.objects.get(username=username)
         except ObjectDoesNotExist:
             user = User.objects.create_user(username, email, password)
+            #create User
             UserProfile(user=user, money=0).save()
             #create ia file default
             userProfile = UserProfile.objects.get(user=user)
             Ia.objects.create(owner=userProfile, name=username+"\'s ia", text="1+1")
+            #default Inventory
+            Inventory.objects.create(owner=userProfile, item=1, typeItem=TypeItem(pk=1))
+            Inventory.objects.create(owner=userProfile, item=1, typeItem=TypeItem(pk=2))
+            Inventory.objects.create(owner=userProfile, item=1, typeItem=TypeItem(pk=3))
+            Inventory.objects.create(owner=userProfile, item=1, typeItem=TypeItem(pk=4))
             return super(SignUp, self).form_valid(form)
         return super(SignUp, self).form_invalid(form)
 
@@ -151,9 +157,19 @@ def market(request):
 
 @login_required
 def inventory(request):
+    inventory = UserProfile.objects.get(user=request.user).__getInventory__()
+    weapon = inventory [0]
+    armor = inventory [1]
+    caterpillar = inventory [2]
+    navSys = inventory [3]
     context = {'money' : UserProfile.objects.get(user=request.user).money,
                'username' : request.user,
-               'pageIn': 'inventory'}
+               'pageIn': 'inventory',
+               'weaponInv': weapon,
+               'armorInv': armor,
+               'caterInv': caterpillar,
+               'navInv': navSys
+               }
     return render(request, 'backend/inventaire.html',context)
 
 @login_required

@@ -44,3 +44,21 @@ body {
   main {
     flex: 1 0 auto;
   }
+
+.mobile-fab-tip {
+	position: relative;
+	right: 15px;
+	padding:0px 0.5rem;
+	text-align: left;
+	background-color: #323232;
+	border-radius: 2px;
+	color: #FFF;
+	width:auto;
+}
+
+.market_img_card {
+	width: 70%;
+	height: auto;
+	margin-left: auto;
+	margin-right: auto
+}
