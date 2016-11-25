@@ -34,17 +34,16 @@
                   </div>
                   <div class="col s6 m6 l6 pad">
                     <h6>Agression Mode</h6>
-                    <form method="post" action="{% url 'backend:agression' %}">
+                    <form method="post" id="agression" action="{% url 'backend:agression' %}">
                     {% csrf_token %}
                         <div class="switch" type="submit">
                           <label>
                             Off
-                            <input type="checkbox" typeof="submit" {% if agression %}checked{% endif %}>
+                            <input id="agressionInput" type="checkbox" typeof="submit" {% if agression %}checked{% endif %}>
                             <span class="lever"></span>
                             On
                           </label>
                         </div>
-                        <button class="btn-floating waves-effect waves-light" type="submit" name="action"><i class="material-icons right">send</i></button>
                     </form>
                   </div>
                 </div>
@@ -81,5 +80,6 @@
       </div>
     </main>
     {% include 'backend/footer.html' %}
+    <script src="{% static "js/accueil.js" %}"></script>
   </body>
 </html>
