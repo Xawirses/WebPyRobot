@@ -158,10 +158,11 @@
                         <form method="post" action="{% url 'backend:buyStuff' %}">
                             {% csrf_token %}
                             <input type="hidden" name="typeItem" value="4">
-                            <input type="hidden" name="item" value="{{ navSys.pk }}">
-                            <input type="hidden" name="price" value="{{ navSys.price }}">
+                            <input type="hidden" name="item" value="{{ navSyst.pk }}">
+                            <input type="hidden" name="price" value="{{ navSyst.price }}">
                             <button type="submit" class="waves-effect waves-light btn">Acheter</button>
-                        </form>                      </div>
+                        </form>
+                      </div>
                     </div>
                   {% endfor %}
 
