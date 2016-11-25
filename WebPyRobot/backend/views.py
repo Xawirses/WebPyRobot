@@ -18,6 +18,7 @@ from .forms import SignUpForm
 from .forms import ChangeDataForm
 
 from .funct.funct import getItemByType
+import json
 
 
 # Create your views here.
@@ -179,7 +180,8 @@ def inventory(request):
                'weaponInv': weapon,
                'armorInv': armor,
                'caterInv': caterpillar,
-               'navInv': navSys
+               'navInv': navSys,
+               'tank': Tank.objects.get(owner=UserProfile.objects.get(user=request.user))
                }
     return render(request, 'backend/inventaire.html',context)
 
@@ -208,3 +210,27 @@ def agression(request):
     userProfile.agression = not agressionValue
     userProfile.save()
     return redirect(reverse('backend:index'))
+
+@login_required
+def changeStuff(request):
+    userProfile = UserProfile.objects.get(user=request.user)
+    tank = Tank.objects.get(owner=userProfile)
+    itemIn = request.POST.get("item")
+    typeIn = request.POST.get("typeItem")
+    if int(typeIn) == 1:
+        w = getItemByType(itemIn, TypeItem(pk=1))
+        tank.weapon = w
+        tank.save()
+    elif int(typeIn) == 2:
+        a = getItemByType(itemIn, TypeItem(pk=2))
+        tank.armor = a
+        tank.save()
+    elif int(typeIn) == 3:
+        c = getItemByType(itemIn, TypeItem(pk=3))
+        tank.caterpillar = c
+        tank.save()
+    elif int(typeIn) == 4:
+        n = getItemByType(itemIn, TypeItem(pk=4))
+        tank.navSystem = n
+        tank.save()
+    return redirect(reverse('backend:inventory'))

@@ -20,4 +20,6 @@ urlpatterns = [
     url(r'^parameter/$', views.parameter, name='parameter'),
     url(r'^help/$', views.help, name='help'),
     url(r'^agression/$', views.agression, name='agression'),
+    url(r'^changeStuff/$', views.changeStuff, name='changeStuff'),
+
 ]
