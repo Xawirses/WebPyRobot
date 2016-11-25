@@ -20,6 +20,7 @@
           <div class="col s12 m9 l10 pad">
             <div class="row z-depth-1 section padding-section">
               <div class="pad col s12 m8 l8 ">
+              {{ return }}
                 <div class="col s12">
                   <ul class="tabs">
                     <li class="tab col s4"><a href="#Canon" class="active">Canons</a></li>
@@ -88,7 +89,13 @@
                         <span> Prix : {{ weapon.price }} $</span>
                       </div>
                       <div class="card-action">
-                        <a class="waves-effect waves-light btn" href="#">Acheter</a>
+                        <form method="post" action="{% url 'backend:buyStuff' %}">
+                            {% csrf_token %}
+                            <input type="hidden" name="typeItem" value="1">
+                            <input type="hidden" name="item" value="{{ weapon.pk }}">
+                            <input type="hidden" name="price" value="{{ weapon.price }}">
+                            <button type="submit" class="waves-effect waves-light btn ">Acheter</button>
+                        </form>
                       </div>
                     </div>
                   {% endfor %}
@@ -104,7 +111,13 @@
                         <span> Prix : {{ armor.price }} $</span>
                       </div>
                       <div class="card-action">
-                        <a class="waves-effect waves-light btn" href="#">Acheter</a>
+                        <form method="post" action="{% url 'backend:buyStuff' %}">
+                            {% csrf_token %}
+                            <input type="hidden" name="typeItem" value="2">
+                            <input type="hidden" name="item" value="{{ armor.pk }}">
+                            <input type="hidden" name="price" value="{{ armor.price }}">
+                            <button type="submit" class="waves-effect waves-light btn">Acheter</button>
+                        </form>
                       </div>
                     </div>
                   {% endfor %}
@@ -120,7 +133,13 @@
                         <span> Prix : {{ caterpillar.price }} $</span>
                       </div>
                       <div class="card-action">
-                        <a class="waves-effect waves-light btn" href="#">Acheter</a>
+                        <form method="post" action="{% url 'backend:buyStuff' %}">
+                            {% csrf_token %}
+                            <input type="hidden" name="typeItem" value="3">
+                            <input type="hidden" name="item" value="{{ caterpillar.pk }}">
+                            <input type="hidden" name="price" value="{{ caterpillar.price }}">
+                            <button type="submit" class="waves-effect waves-light btn">Acheter</button>
+                        </form>
                       </div>
                     </div>
                   {% endfor %}
@@ -136,8 +155,13 @@
                         <span> Prix : {{ navSyst.price }} $</span>
                       </div>
                       <div class="card-action">
-                        <a class="waves-effect waves-light btn" href="#">Acheter</a>
-                      </div>
+                        <form method="post" action="{% url 'backend:buyStuff' %}">
+                            {% csrf_token %}
+                            <input type="hidden" name="typeItem" value="4">
+                            <input type="hidden" name="item" value="{{ navSys.pk }}">
+                            <input type="hidden" name="price" value="{{ navSys.price }}">
+                            <button type="submit" class="waves-effect waves-light btn">Acheter</button>
+                        </form>                      </div>
                     </div>
                   {% endfor %}
 

@@ -17,7 +17,7 @@ from .models import UserProfile, Tank, Ia
 from .forms import SignUpForm
 from .forms import ChangeDataForm
 
-from .funct.funct import getItemByType
+from .funct.funct import getItemByType,getBoolInventory
 import json
 
 
@@ -157,13 +157,15 @@ def editorDetail(request, pk):
 
 @login_required
 def market(request):
-    context = {'money' : UserProfile.objects.get(user=request.user).money,
+    currentUser = UserProfile.objects.get(user=request.user)
+
+    context = {'money' : currentUser.money,
                'username' : request.user,
                'pageIn': 'market',
                'weapons': Weapon.objects.all(),
                'armors': Armor.objects.all(),
                'caterpillars': Caterpillar.objects.all(),
-               'navSys': NavSystem.objects.all()
+               'navSys': NavSystem.objects.all(),
                }
     return render(request, 'backend/boutique.html',context)
 
@@ -234,3 +236,49 @@ def changeStuff(request):
         tank.navSystem = n
         tank.save()
     return redirect(reverse('backend:inventory'))
+
+@login_required
+def buyStuff (request):
+    user = UserProfile.objects.get(user=request.user)
+    itemIn = int(request.POST.get("item"))
+    typeIn = int(request.POST.get("typeItem"))
+    price = int(request.POST.get("price"))
+
+    boolTab = getBoolInventory(user)
+
+    if boolTab[typeIn-1][itemIn-1]:
+        context = {'money': UserProfile.objects.get(user=request.user).money,
+                   'username': request.user,
+                   'pageIn': 'market',
+                   'weapons': Weapon.objects.all(),
+                   'armors': Armor.objects.all(),
+                   'caterpillars': Caterpillar.objects.all(),
+                   'navSys': NavSystem.objects.all(),
+                   "return": "Item déjà acheter "
+                   }
+        return render(request, 'backend/boutique.html', context)
+    elif price > user.money :
+        context = {'money': UserProfile.objects.get(user=request.user).money,
+                   'username': request.user,
+                   'pageIn': 'market',
+                   'weapons': Weapon.objects.all(),
+                   'armors': Armor.objects.all(),
+                   'caterpillars': Caterpillar.objects.all(),
+                   'navSys': NavSystem.objects.all(),
+                   "return": "Pas assez d'argent"
+                   }
+        return render(request, 'backend/boutique.html', context)
+    else :
+        user.money = user.money - price
+        user.save()
+        Inventory.objects.create(owner=user,item=itemIn,typeItem=TypeItem(pk=typeIn))
+        context = {'money': UserProfile.objects.get(user=request.user).money,
+                   'username': request.user,
+                   'pageIn': 'market',
+                   'weapons': Weapon.objects.all(),
+                   'armors': Armor.objects.all(),
+                   'caterpillars': Caterpillar.objects.all(),
+                   'navSys': NavSystem.objects.all(),
+                   "return": "Achat effectué"
+                   }
+        return render(request, 'backend/boutique.html', context)

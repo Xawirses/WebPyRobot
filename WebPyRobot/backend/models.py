@@ -50,7 +50,12 @@ class Weapon(models.Model):
 
     def __str__(self):
         return self.name
-
+    def isInInventory(self,user):
+        inv = Inventory.objects.filter(owner=user,typeItem=TypeItem(pk=1), item=self.pk)
+        if inv.count() > 0 :
+            return True
+        else:
+            return False
 
 class Armor(models.Model):
     name = models.CharField(max_length=200)
@@ -60,7 +65,12 @@ class Armor(models.Model):
 
     def __str__(self):
         return self.name
-
+    def isInInventory(self,user):
+        inv = Inventory.objects.filter(owner=user,typeItem=TypeItem(pk=2), item=self.pk)
+        if inv.count() > 0 :
+            return True
+        else:
+            return False
 
 class Caterpillar(models.Model):
     name = models.CharField(max_length=200)
@@ -70,6 +80,12 @@ class Caterpillar(models.Model):
 
     def __str__(self):
         return self.name
+    def isInInventory(self,user):
+        inv = Inventory.objects.filter(owner=user,typeItem=TypeItem(pk=3), item=self.pk)
+        if inv.count() > 0 :
+            return True
+        else:
+            return False
 
 
 class NavSystem(models.Model):
@@ -80,6 +96,12 @@ class NavSystem(models.Model):
 
     def __str__(self):
         return self.name
+    def isInInventory(self,user):
+        inv = Inventory.objects.filter(owner=user,typeItem=TypeItem(pk=4), item=self.pk)
+        if inv.count() > 0 :
+            return True
+        else:
+            return False
 
 
 class Tank(models.Model):
