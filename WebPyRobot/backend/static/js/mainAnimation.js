@@ -1,4 +1,30 @@
 
+var stringReceive = a;
+
+var tabReceive = new Array();
+
+var suprStr = 	function (stringReceive){
+					var str = new String(); 
+					var miniTab = new Array();
+					for (var i = 1; i < stringReceive.length-1; i++) {
+						if(stringReceive[i] == '['){}
+						else if (stringReceive[i] == ',') {
+							if(stringReceive[i+1] != '[' ){
+								miniTab.push(str);
+							str = new String();
+							}
+						}
+						else if (stringReceive[i] == ']') {
+							miniTab.push(str);
+							str = new String();
+							tabReceive.push(miniTab);
+							miniTab = new Array();
+						}
+						else
+							str = str + stringReceive[i];
+
+					}
+				}
 // var tabReceive = [["0","moveDown","0","1"],
 // 				  ["0","shoot","10","10"],
 // 				  ["0","moveDown","0","0"],
@@ -14,7 +40,7 @@
 // 				  ["1","moveUp","0","0"],
 // 				  ["1","moveUp","0","0"]];
 
-var tabReceive = a;
+
 
 
 var winWidth = (window.innerWidth);
@@ -38,12 +64,11 @@ map.addPlayer(player2);
 var animation = new Array();
 var tir = new Array();
 
-
-var moveDown = function(player,x,y){
+var moveUp = function(player,x,y){
 	player.move(STATE.UP,map);
 }
 
-var moveUp = function(player,x,y){
+var moveDown = function(player,x,y){
 	player.move(STATE.DOWN,map);
 }
 
@@ -124,6 +149,8 @@ window.onload = function() {
 	var j = 0;
 	var i = 0;
 	var k = 0;
+	
+	suprStr(test);
 	initAnimation();
 
 	setInterval(function() {
