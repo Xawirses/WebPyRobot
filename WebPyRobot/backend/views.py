@@ -288,3 +288,7 @@ def buyStuff (request):
                    "return": "Achat effectué"
                    }
         return render(request, 'backend/boutique.html', context)
+
+@login_required
+def documentation (request):
+  return render (request,"backend/documentation.html")

@@ -11,7 +11,7 @@
   </head>
   <body>
     {% include 'backend/header.html' with moneyIn=money user=username%}
-    <main class="container" id="containerHelp">
+    <main class="container">
       <div class="section">
         <div class="row">
 
@@ -21,7 +21,7 @@
           <div class="col s12 m9 l10 pad">
             <div class="row z-depth-1 section padding-section" >
               <div class="margTop col s12 m6 l6 center-align">
-                <a class="waves-effect waves-light btn-large">Documentation</a>
+                <a class="waves-effect waves-light btn-large" href="{% url "backend:documentation" %}">Documentation</a>
               </div>
               <div class="margTop col s12 m6 l6 center-align ">
                 <a class="waves-effect waves-light btn-large">Tutoriel</a>
