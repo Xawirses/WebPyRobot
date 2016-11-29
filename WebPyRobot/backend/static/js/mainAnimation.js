@@ -1,19 +1,20 @@
 
-var tabReceive = [["0","moveDown","0","1"],
-				  ["0","shoot","10","10"],
-				  ["0","moveDown","0","0"],
-				  ["0","moveRigth","0","0"],
-				  ["0","moveDown","0","0"],
-				  ["0","moveDown","0","0"],
-				  ["0","moveDown","0","0"],
-				  ["0","moveDown","0","0"],
-				  ["0","shoot","31","31"],
-				  ["0","endTurn","31","31"],
-				  ["1","moveUp","0","0"],
-				  ["1","shoot","0","0"],
-				  ["1","moveUp","0","0"],
-				  ["1","moveUp","0","0"]];
+// var tabReceive = [["0","moveDown","0","1"],
+// 				  ["0","shoot","10","10"],
+// 				  ["0","moveDown","0","0"],
+// 				  ["0","moveRigth","0","0"],
+// 				  ["0","moveDown","0","0"],
+// 				  ["0","moveDown","0","0"],
+// 				  ["0","moveDown","0","0"],
+// 				  ["0","moveDown","0","0"],
+// 				  ["0","shoot","31","31"],
+// 				  ["0","endTurn","31","31"],
+// 				  ["1","moveUp","0","0"],
+// 				  ["1","shoot","0","0"],
+// 				  ["1","moveUp","0","0"],
+// 				  ["1","moveUp","0","0"]];
 
+var tabReceive = a;
 
 
 var winWidth = (window.innerWidth);
@@ -130,6 +131,7 @@ window.onload = function() {
 	}, 60);
 	
 	var asbird;
+	alert(tabReceive[3]);
 	var xbird;
 	var ybird;
 	
