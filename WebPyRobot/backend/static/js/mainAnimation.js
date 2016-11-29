@@ -9,7 +9,7 @@ var suprStr = 	function (stringReceive){
 					for (var i = 1; i < stringReceive.length-1; i++) {
 						if(stringReceive[i] == '[' && stringReceive[i] == ' ' && stringReceive[i] == '"' ){}
 						else if (stringReceive[i] == ',') {
-							if(stringReceive[i+1] != '[' ){
+							if(stringReceive[i+2] != '[' ){
 								miniTab.push(str);
 								str = new String();
 							}
