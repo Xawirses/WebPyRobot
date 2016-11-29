@@ -7,11 +7,11 @@ var suprStr = 	function (stringReceive){
 					var str = new String(); 
 					var miniTab = new Array();
 					for (var i = 1; i < stringReceive.length-1; i++) {
-						if(stringReceive[i] == '['){}
+						if(stringReceive[i] == '[' && stringReceive[i] == ' ' && stringReceive[i] == '"' ){}
 						else if (stringReceive[i] == ',') {
 							if(stringReceive[i+1] != '[' ){
 								miniTab.push(str);
-							str = new String();
+								str = new String();
 							}
 						}
 						else if (stringReceive[i] == ']') {
@@ -64,11 +64,11 @@ map.addPlayer(player2);
 var animation = new Array();
 var tir = new Array();
 
-var moveUp = function(player,x,y){
+var moveDown = function(player,x,y){
 	player.move(STATE.UP,map);
 }
 
-var moveDown = function(player,x,y){
+var moveUp = function(player,x,y){
 	player.move(STATE.DOWN,map);
 }
 
@@ -119,7 +119,7 @@ var initAnimation = function(){
 				moveLeft(tabReceive[i][0],tabReceive[i][2],tabReceive[i][3]);
 			};
 		
-		else if(tabReceive[i][1] == "moveRigth" )
+		else if(tabReceive[i][1] == "moveRigth")
 			animation[i] = function(i){ 
 				moveRigth(tabReceive[i][0],tabReceive[i][2],tabReceive[i][3]);
 			};
@@ -149,7 +149,7 @@ window.onload = function() {
 	var j = 0;
 	var i = 0;
 	var k = 0;
-	
+
 	suprStr(test);
 	initAnimation();
 
