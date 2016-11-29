@@ -111,12 +111,7 @@ def thanks(request):
 
 @login_required
 def fight(request):
-    tank = Tank.objects.get(owner_id=1)
-    r1 = Robot(tank)
-    r2 = Robot(tank)
-    game = Game(r1, r2)
-    game.process()
-    return HttpResponse('page de fight')
+    return render(request,"backend/fight.html")
 
 @login_required
 def password_change(request):
