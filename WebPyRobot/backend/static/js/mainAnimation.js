@@ -38,11 +38,11 @@ var animation = new Array();
 var tir = new Array();
 
 
-var moveUp = function(player,x,y){
+var moveDown = function(player,x,y){
 	player.move(STATE.UP,map);
 }
 
-var moveDown = function(player,x,y){
+var moveUp = function(player,x,y){
 	player.move(STATE.DOWN,map);
 }
 
