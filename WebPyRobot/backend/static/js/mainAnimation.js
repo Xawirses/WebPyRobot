@@ -8,10 +8,9 @@ var tabReceive = [["0","moveDown","0","1"],
 				  ["0","moveDown","0","0"],
 				  ["0","moveDown","0","0"],
 				  ["0","shoot","31","31"],
-				  ["0","moveDown","0","0"],
-				  ["0","shoot","31","31"],
-				  ["1","shoot","31","31"],
+				  ["0","endTurn","31","31"],
 				  ["1","moveUp","0","0"],
+				  ["1","shoot","0","0"],
 				  ["1","moveUp","0","0"],
 				  ["1","moveUp","0","0"]];
 
@@ -71,12 +70,7 @@ var shoot = function(player,x,y){
 	tir.push(bullet);	
 }
 
-var wait = function(k){
-	--k;
-}
-
 var initAnimation = function(){
-
 	for (var i = 0; i < this.tabReceive.length; i++) {
 		if(tabReceive[i][0]  == "0"){
 			tabReceive[i][0] = player1;
@@ -84,11 +78,10 @@ var initAnimation = function(){
 		else 
 			tabReceive[i][0] = player2;
 
-		if(tabReceive[i][1] == "moveDown" )
-
+		if(tabReceive[i][1] == "moveDown")
 			animation[i] = function(i){
 				moveDown(tabReceive[i][0],tabReceive[i][2],tabReceive[i][3]);
-		};
+			};
 
 		else if(tabReceive[i][1] == "moveUp" )
 			animation[i] = function(i){
@@ -109,15 +102,14 @@ var initAnimation = function(){
 			animation[i] = function (i){ 
 				shoot(tabReceive[i][0],tabReceive[i][2],tabReceive[i][3]);
 			};
-			++i;
-			animation[i] = function(i){
-				wait(i);
-			}
 		}
-		 
+		else if(tabReceive[i][1] == "endTurn" ){
+			animation[i] = function (i){ 
+				
+			};
+		}
 
 	}
-
 }
 
 window.onload = function() {
@@ -142,11 +134,10 @@ window.onload = function() {
 	var ybird;
 	
 	setInterval(function() {	
-		    if(j< animation.length){
-		    	animation[j](k);
+		    if(j < animation.length){
+		    	animation[j](j);
 		   		++j;
-		   		++k;
-			}
+		   	}
 		   asbird =Math.floor((Math.random() * 20) + 1);
 		   if(asbird == 1){
 		   	var xbird = Math.floor((Math.random() * 32) + 1);
