@@ -1,6 +1,6 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/html">
+<html lang="fr" xmlns="http://www.w3.org/1999/html">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
@@ -12,7 +12,7 @@
   <body>
     <header>
         <nav class="light-blue lighten-1" role="navigation">
-          <div class="nav-wrapper container"><a id="logo-container" href="index" class="brand-logo">Logo</a>
+          <div class="nav-wrapper container"><a id="logo-container" href="index" class="brand-logo"><img class="img-logo" src="{% static "img/svg_tank/tank.svg" %}">  WebPyRobot</a>
             <ul class="right hide-on-med-and-down">
               <li><a class="modal-trigger" href="#modalConnexion">Connexion</a></li>
               <li><a class="modal-trigger" href="#modalInscription">Inscription</a></li>
@@ -46,7 +46,7 @@
                     <label for="password">Password</label>
                   </div>
                  <div class="modal-footer">
-                   <input type="submit" value="Se Connecter" class=" modal-action waves-effect waves-green btn"></input>
+                   <input type="submit" value="Se Connecter" class=" modal-action waves-effect waves-green btn">
                  </div>
                </div>
             </form>
@@ -61,21 +61,21 @@
                 <div class="row">
 
                     <div class="input-field col s12">
-                        <input id="first_name" type="text" class="validate">
-                        <label for="first_name">Pseudo</label>
+                        {{ form.username }}
+                        <label for="{{ form.username.label }}">{{ form.username.label }}</label>
                     </div>
                     <div class="input-field col s12">
-                        <input id="email" type="email" class="validate">
-                        <label for="email">Email</label>
+                        {{ form.email }}
+                        <label for="{{ form.email.label }}">{{ form.email.label }}</label>
                     </div>
                     <div class="input-field col s12">
-                        <input id="password" type="password" class="validate">
-                        <label for="password">Password</label>
+                        {{ form.password }}
+                        <label for="{{ form.password.label }}">{{ form.password.label }}</label>
                     </div>
                 </div>
                     
                 <div class="modal-footer">
-                    <input type="submit" value="S'inscrire" class=" modal-action waves-effect waves-green btn"></input>
+                    <input type="submit" value="S'inscrire" class=" modal-action waves-effect waves-green btn">
                 </div>
             </form>
         </div>
@@ -127,5 +127,6 @@
       </div>
     </main>
     {% include 'backend/footer.html' %}
+
     </body>
 </html>

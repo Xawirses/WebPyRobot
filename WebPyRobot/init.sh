@@ -28,4 +28,10 @@ fi
 echo "Install dependencies"
 
 # install on pip only
-$PIP_CMD install django
+sudo $PIP_CMD install Django
+sudo $PIP_CMD install Pillow
+# init data base
+./manage.py makemigrations
+./manage.py migrate
+./manage.py loaddata backend/fixtures/database.json
+

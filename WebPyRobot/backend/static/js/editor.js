@@ -11,7 +11,6 @@
             globalVars: true
         });
         $(".save").click(function (e) {
-            e.preventDefault();
             $("#code").submit();
         });
         $("#code").submit(function () {

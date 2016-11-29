@@ -1,4 +1,6 @@
 from dbus.service import Object
+from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth.forms import PasswordChangeForm
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
@@ -7,7 +9,17 @@ from django.views.generic.edit import FormView
 from django.urls import reverse
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
+
+from backend.models import Weapon, Armor, Caterpillar, NavSystem, TypeItem, Inventory
 from .models import UserProfile, Tank, Ia
+ #from .game.Game import Game, Robot
+
+from .forms import SignUpForm
+from .forms import ChangeDataForm
+
+from .funct.funct import getItemByType,getBoolInventory
+import json
+
 
 # Create your views here.
 
@@ -16,10 +28,14 @@ def index(request):
     if request.user.is_authenticated:
         context = {'money' : UserProfile.objects.get(user=request.user).money,
                    'username' : request.user,
-                   'pageIn' : 'accueil' }
+                   'pageIn' : 'accueil' ,
+                   'agression': UserProfile.objects.get(user=request.user).agression,
+                   'tank': Tank.objects.get(owner=UserProfile.objects.get(user=request.user))}
         return render(request, "backend/accueil.html", context)
     else:
-        return render(request, "backend/index.html")
+        form = SignUpForm()
+        context = { 'form' : form }
+        return render(request, "backend/index.html",context)
 
 
 @never_cache
@@ -37,7 +53,9 @@ def login(request):
             urlnext = request.POST.get('next', reverse('backend:index'))
             return redirect(urlnext)
         else:
+            form = SignUpForm()
             context = {
+                'form': form,
                 'next': request.GET.get('next'),
                 'error': 'Your username and password didn\'t match. Please try again.'
             }
@@ -54,7 +72,7 @@ def logout(request):
 
 class SignUp (FormView):
     from .forms import SignUpForm
-    template_name = 'backend/signUp.html'
+    template_name = 'backend/index.html'
     form_class = SignUpForm
 
     def get_success_url(self):
@@ -74,19 +92,52 @@ class SignUp (FormView):
             User.objects.get(username=username)
         except ObjectDoesNotExist:
             user = User.objects.create_user(username, email, password)
+            #create User
             UserProfile(user=user, money=0).save()
+            #create ia file default
+            userProfile = UserProfile.objects.get(user=user)
+            i = Ia.objects.create(owner=userProfile, name=username+"\'s Ia", text="1+1")
+            #default Inventory
+            Inventory.objects.create(owner=userProfile, item=1, typeItem=TypeItem(pk=1))
+            Inventory.objects.create(owner=userProfile, item=1, typeItem=TypeItem(pk=2))
+            Inventory.objects.create(owner=userProfile, item=1, typeItem=TypeItem(pk=3))
+            Inventory.objects.create(owner=userProfile, item=1, typeItem=TypeItem(pk=4))
+            #init tank
+            w = getItemByType(1,TypeItem(pk=1))
+            a = getItemByType(1,TypeItem(pk=2))
+            c = getItemByType(1,TypeItem(pk=3))
+            n = getItemByType(1,TypeItem(pk=4))
+            Tank.objects.create(owner=userProfile, ia=i,weapon=w,armor=a,caterpillar=c,navSystem=n)
             return super(SignUp, self).form_valid(form)
         return super(SignUp, self).form_invalid(form)
 
 
 def thanks(request):
-    return HttpResponse('Merci de c etre inscrit !')
-
+    return render(request,"backend/thanks.html")
 
 @login_required
 def fight(request):
-    return HttpResponse('page de fight')
+    return render(request,"backend/fight.html")
 
+@login_required
+def password_change(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(user=request.user, data=request.POST)
+        print("ICI")
+        if form.is_valid():
+            form.save()
+            update_session_auth_hash(request, form.user)
+            context = {'money': UserProfile.objects.get(user=request.user).money,
+                       'username': request.user,
+                       'pageIn': 'accueil',
+                       'returnChange': "Les Informations ont bien été enregistré"}
+            return render(request, "backend/accueil.html", context)
+        else:
+            context = {'money': UserProfile.objects.get(user=request.user).money,
+                       'username': request.user,
+                       'pageIn': 'accueil',
+                       'returnChange': "Erreur"}
+            return render(request, "backend/accueil.html", context)
 
 @login_required
 def figthdetail(request, pk):
@@ -121,17 +172,46 @@ def editorDetail(request, pk):
 
 @login_required
 def market(request):
-    context = {'money' : UserProfile.objects.get(user=request.user).money,
+    currentUser = UserProfile.objects.get(user=request.user)
+
+    context = {'money' : currentUser.money,
                'username' : request.user,
-               'pageIn': 'market'}
+               'pageIn': 'market',
+               'weapons': Weapon.objects.all(),
+               'armors': Armor.objects.all(),
+               'caterpillars': Caterpillar.objects.all(),
+               'navSys': NavSystem.objects.all(),
+               }
     return render(request, 'backend/boutique.html',context)
 
 @login_required
 def inventory(request):
+    inventory = UserProfile.objects.get(user=request.user).__getInventory__()
+    weapon = inventory [0]
+    armor = inventory [1]
+    caterpillar = inventory [2]
+    navSys = inventory [3]
     context = {'money' : UserProfile.objects.get(user=request.user).money,
                'username' : request.user,
-               'pageIn': 'inventory'}
+               'pageIn': 'inventory',
+               'weaponInv': weapon,
+               'armorInv': armor,
+               'caterInv': caterpillar,
+               'navInv': navSys,
+               'tank': Tank.objects.get(owner=UserProfile.objects.get(user=request.user))
+               }
     return render(request, 'backend/inventaire.html',context)
+
+@login_required
+def parameter(request):
+
+    form = ChangeDataForm()
+    form.fields['email'].initial = request.user.email
+    form.fields['username'].initial= request.user.username
+    context = {'money' : UserProfile.objects.get(user=request.user).money,
+               'username' : request.user,
+               'form': form}
+    return render(request, 'backend/parameter.html',context)
 
 @login_required
 def help(request):
@@ -140,3 +220,80 @@ def help(request):
                'pageIn': 'help'}
     return render(request, 'backend/aide.html',context)
 
+@login_required
+def agression(request):
+    userProfile = UserProfile.objects.get(user=request.user)
+    agressionValue = userProfile.agression
+    userProfile.agression = not agressionValue
+    userProfile.save()
+    return redirect(reverse('backend:index'))
+
+@login_required
+def changeStuff(request):
+    userProfile = UserProfile.objects.get(user=request.user)
+    tank = Tank.objects.get(owner=userProfile)
+    itemIn = request.POST.get("item")
+    typeIn = request.POST.get("typeItem")
+    if int(typeIn) == 1:
+        w = getItemByType(itemIn, TypeItem(pk=1))
+        tank.weapon = w
+        tank.save()
+    elif int(typeIn) == 2:
+        a = getItemByType(itemIn, TypeItem(pk=2))
+        tank.armor = a
+        tank.save()
+    elif int(typeIn) == 3:
+        c = getItemByType(itemIn, TypeItem(pk=3))
+        tank.caterpillar = c
+        tank.save()
+    elif int(typeIn) == 4:
+        n = getItemByType(itemIn, TypeItem(pk=4))
+        tank.navSystem = n
+        tank.save()
+    return redirect(reverse('backend:inventory'))
+
+@login_required
+def buyStuff (request):
+    user = UserProfile.objects.get(user=request.user)
+    itemIn = int(request.POST.get("item"))
+    typeIn = int(request.POST.get("typeItem"))
+    price = int(request.POST.get("price"))
+
+    boolTab = getBoolInventory(user)
+
+    if boolTab[typeIn-1][itemIn-1]:
+        context = {'money': UserProfile.objects.get(user=request.user).money,
+                   'username': request.user,
+                   'pageIn': 'market',
+                   'weapons': Weapon.objects.all(),
+                   'armors': Armor.objects.all(),
+                   'caterpillars': Caterpillar.objects.all(),
+                   'navSys': NavSystem.objects.all(),
+                   "return": "Item déjà acheter "
+                   }
+        return render(request, 'backend/boutique.html', context)
+    elif price > user.money :
+        context = {'money': UserProfile.objects.get(user=request.user).money,
+                   'username': request.user,
+                   'pageIn': 'market',
+                   'weapons': Weapon.objects.all(),
+                   'armors': Armor.objects.all(),
+                   'caterpillars': Caterpillar.objects.all(),
+                   'navSys': NavSystem.objects.all(),
+                   "return": "Pas assez d'argent"
+                   }
+        return render(request, 'backend/boutique.html', context)
+    else :
+        user.money = user.money - price
+        user.save()
+        Inventory.objects.create(owner=user,item=itemIn,typeItem=TypeItem(pk=typeIn))
+        context = {'money': UserProfile.objects.get(user=request.user).money,
+                   'username': request.user,
+                   'pageIn': 'market',
+                   'weapons': Weapon.objects.all(),
+                   'armors': Armor.objects.all(),
+                   'caterpillars': Caterpillar.objects.all(),
+                   'navSys': NavSystem.objects.all(),
+                   "return": "Achat effectué"
+                   }
+        return render(request, 'backend/boutique.html', context)
