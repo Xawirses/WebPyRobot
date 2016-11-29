@@ -56,7 +56,7 @@ Bullet.prototype.drawBullet = function(context) {
             this.width/1.4/this.contraint, this.height/1.4/this.contraint // Taille du rectangle destination (c'est la taille du personnage)
         );
 
-        if(this.stateTouch > 14)
+        if(this.stateTouch > 8)
             return false;
 
 
