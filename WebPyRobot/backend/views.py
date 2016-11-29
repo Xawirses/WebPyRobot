@@ -10,7 +10,7 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 
-from backend.models import Weapon, Armor, Caterpillar, NavSystem, TypeItem, Inventory
+from backend.models import Weapon, Armor, Caterpillar, NavSystem, TypeItem, Inventory, DefaultIa
 from .models import UserProfile, Tank, Ia
  #from .game.Game import Game, Robot
 
@@ -96,7 +96,7 @@ class SignUp (FormView):
             UserProfile(user=user, money=0).save()
             #create ia file default
             userProfile = UserProfile.objects.get(user=user)
-            i = Ia.objects.create(owner=userProfile, name=username+"\'s Ia", text="1+1")
+            i = Ia.objects.create(owner=userProfile, name=username+"\'s Ia", text=DefaultIa.objects.get(pk=1).text)
             #default Inventory
             Inventory.objects.create(owner=userProfile, item=1, typeItem=TypeItem(pk=1))
             Inventory.objects.create(owner=userProfile, item=1, typeItem=TypeItem(pk=2))
@@ -117,7 +117,29 @@ def thanks(request):
 
 @login_required
 def fight(request):
-    return render(request,"backend/fight.html")
+    import random
+    from .game.Game import Game
+    user1 = UserProfile.objects.get(user=request.user)
+    nbuser = UserProfile.objects.all().count()
+    user2 = UserProfile.objects.get(user=request.user)
+    while True :
+        alea = random.randrange(0, nbuser)
+        try:
+            user2 = UserProfile.objects.get(pk=alea)
+        except UserProfile.DoesNotExist:
+            pass
+        if user1 != user2: break
+
+    tank1 = Tank.objects.get(owner=user1)
+    tank2 = Tank.objects.get(owner=user2)
+    ia1 = Ia.objects.get(owner=user1)
+    ia2 = Ia.objects.get(owner=user2)
+    game = Game(tank1, tank2, ia1, ia2)
+    res = game.run(0)
+    context = {
+        'result': res
+    }
+    return render(request, "backend/fight.html", context)
 
 @login_required
 def password_change(request):
@@ -138,11 +160,6 @@ def password_change(request):
                        'pageIn': 'accueil',
                        'returnChange': "Erreur"}
             return render(request, "backend/accueil.html", context)
-
-@login_required
-def figthdetail(request, pk):
-    return HttpResponse('page figthDetails pour ' + pk)
-
 
 @login_required
 def editor(request):

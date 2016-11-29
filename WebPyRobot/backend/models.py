@@ -46,6 +46,7 @@ class Weapon(models.Model):
     price = models.PositiveIntegerField()
     attackValue = models.PositiveIntegerField()
     range = models.PositiveIntegerField()
+    attackCost = models.PositiveIntegerField()
     pathIcon = models.CharField(max_length=200)
 
     def __str__(self):
@@ -128,6 +129,10 @@ class Inventory (models.Model):
 
     def __str__(self):
         return self.owner.__str__() + ",.... " + getItemByType(self.item, self.typeItem).__str__()
+
+
+class DefaultIa (models.Model):
+    text = models.TextField()
 
 def getItemByType(itemIn,type):
     if type ==  TypeItem(pk=1) :
