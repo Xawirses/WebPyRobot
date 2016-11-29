@@ -163,7 +163,6 @@ class Game(object):
         if i >= 64: return self.__result
         if self.__robots[0].getLife() <= 0 or self.__robots[1].getLife() <= 0:
             return self.__result
-        self.__result.append(i)
         def exit():
             pass
         self.__current = 0
