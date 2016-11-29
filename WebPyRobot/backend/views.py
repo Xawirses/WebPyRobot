@@ -144,12 +144,23 @@ def figthdetail(request, pk):
 
 @login_required
 def editor(request):
-    userProfile = UserProfile.objects.get(user=request.user)
-    context = { 'money' : UserProfile.objects.get(user=request.user).money,
-                'username' : request.user,
-                'pageIn': 'editor',
-                'ia': Ia.getIaByOwner(userProfile) }
-    return render(request, 'backend/editeur.html',context)
+    from .forms import CodeForm
+    userprofile = UserProfile.objects.get(user=request.user)
+    ia = Ia.objects.get(owner=userprofile)
+    if request.method == 'POST':
+        code_form = CodeForm(request.POST)
+        if code_form.is_valid():
+            useria = code_form.cleaned_data['ia']
+            ia.text = useria
+            ia.save()
+
+    context = {
+        'money': UserProfile.objects.get(user=request.user).money,
+        'username': request.user,
+        'pageIn': 'editor',
+        'code': ia.text
+    }
+    return render(request, 'backend/editeur.html', context)
 
 @login_required
 def editorDetail(request, pk):
