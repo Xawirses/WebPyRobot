@@ -136,6 +136,10 @@ def fight(request):
     ia2 = Ia.objects.get(owner=user2)
     game = Game(tank1, tank2, ia1, ia2)
     res = game.run(0)
+    user1.money = user1.money + 100
+    user1.save()
+    user2.money = user2.money + 100
+    user2.save()
     context = {
         'result': res
     }
