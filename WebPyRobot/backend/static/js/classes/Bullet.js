@@ -56,13 +56,13 @@ Bullet.prototype.drawBullet = function(context) {
             this.width/1.4/this.contraint, this.height/1.4/this.contraint // Taille du rectangle destination (c'est la taille du personnage)
         );
 
-        if(this.stateTouch > 8)
+        if(this.stateTouch > 4)
             return false;
 
 
     } 
 
-    else if(Math.abs(this.x1 + (this.x*32/this.contraint) - (this.x2*32/this.contraint )) <= 0.1 && Math.abs(this.y1+(this.y*32/this.contraint) - (this.y2*32/this.contraint)) <= 0.1 ) {
+    else if(Math.abs(this.x1 + (this.x*32/this.contraint) - (this.x2*32/this.contraint )) <= 0.7 && Math.abs(this.y1+(this.y*32/this.contraint) - (this.y2*32/this.contraint)) <= 0.7 ) {
         // Si le déplacement a atteint ou dépassé le temps nécéssaire pour s'effectuer, on le termine
         this.stateAnimation = -1;
         this.direction = 2;
@@ -76,8 +76,8 @@ Bullet.prototype.drawBullet = function(context) {
             frame %= 9;
         }
 
-        shiftX = ((this.x2/this.contraint - this.x/this.contraint) * (this.stateAnimation / 0.5)) ;
-        shiftY = ((this.y2/this.contraint - this.y/this.contraint) * (this.stateAnimation / 0.5));
+        shiftX = ((this.x2/this.contraint - this.x/this.contraint) * (this.stateAnimation / 0.7));
+        shiftY = ((this.y2/this.contraint - this.y/this.contraint) * (this.stateAnimation / 0.7));
 
 
         // On incrémente d'une frame
