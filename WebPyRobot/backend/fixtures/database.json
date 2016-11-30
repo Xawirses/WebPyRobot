@@ -44,7 +44,7 @@
     "fields": {
       "name": "Blindage #1",
       "price": "300",
-      "armorValue": "20",
+      "armorValue": "10",
       "pathIcon" : "shield_1.svg"
     }
   },
@@ -54,7 +54,7 @@
     "fields": {
       "name": "Blindage #2",
       "price": "600",
-      "armorValue": "60",
+      "armorValue": "30",
       "pathIcon" : "shield_2.svg"
 
     }
@@ -65,7 +65,7 @@
     "fields": {
       "name": "Blindage #3",
       "price": "1000",
-      "armorValue": "80",
+      "armorValue": "50",
       "pathIcon" : "shield_3.svg"
     }
   },

@@ -82,6 +82,10 @@ var moveRigth = function(player,x,y){
 	player.move(STATE.RIGHT,map)
 };
 
+var deadPlayer = function(player){
+	player.dead();
+}
+
 var shoot = function(player,x,y){
 	var ctx = canvas.getContext('2d');
 	var bullet;
@@ -135,6 +139,11 @@ var initAnimation = function(){
 			animation[i] = function (i){
 
 			};
+		}
+		else if(tabReceive[i][1] == "dead"){
+			animation[i] = function (i){ 
+				dead(tabReceive[i][0]);
+			
 		}
 
 	}
