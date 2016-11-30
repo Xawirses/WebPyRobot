@@ -16,16 +16,15 @@
 
   </head>
   <body>
-    {% include 'backend/header.html' with moneyIn=money user=username%}
+  {% include 'backend/header.html' with moneyIn=money user=username%}
     <main class="container">
-      <div class="section">
+        <div class="section">
         <div class="row">
-
             {% include 'backend/sideNav.html' with page=pageIn %}
-          <h3 id="win"></h3>
 
-          <canvas class="col m9 l10" id="canvas"></canvas>
-      </div>
+            <h3 id="win" class="col l12"></h3>
+            <canvas class="col m7 l7" id="canvas"></canvas>
+        </div>
     </main>
     {% include 'backend/footer.html' %}
   </body>
