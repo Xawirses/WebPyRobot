@@ -1,24 +1,26 @@
 
 var stringReceive = a;
 
-var tabReceive = new Array();
+var tabReceive = [];
 
 var suprStr = 	function (stringReceive){
-					var str = new String(); 
-					var miniTab = new Array();
+					var str = "";
+					var miniTab = [];
 					for (var i = 1; i < stringReceive.length-1; i++) {
-						if(stringReceive[i] == '[' && stringReceive[i] == ' ' && stringReceive[i] == '"' ){}
+						if(stringReceive[i] == '[' ||
+						   stringReceive[i] == ' ' ||
+						   stringReceive[i] == '\"'){}
 						else if (stringReceive[i] == ',') {
-							if(stringReceive[i+2] != '[' ){
+							if(stringReceive[i + 2] != '[' ){
 								miniTab.push(str);
-								str = new String();
+								str = "";
 							}
 						}
 						else if (stringReceive[i] == ']') {
 							miniTab.push(str);
-							str = new String();
+							str = "";
 							tabReceive.push(miniTab);
-							miniTab = new Array();
+							miniTab = [];
 						}
 						else
 							str = str + stringReceive[i];
@@ -66,19 +68,19 @@ var tir = new Array();
 
 var moveDown = function(player,x,y){
 	player.move(STATE.UP,map);
-}
+};
 
 var moveUp = function(player,x,y){
 	player.move(STATE.DOWN,map);
-}
+};
 
 var moveLeft = function(player,x,y){
 	player.move(STATE.LEFT,map);
-}
+};
 
 var moveRigth = function(player,x,y){
 	player.move(STATE.RIGHT,map)
-}
+};
 
 var shoot = function(player,x,y){
 	var ctx = canvas.getContext('2d');
@@ -93,76 +95,75 @@ var shoot = function(player,x,y){
 	else
 		bullet = new Bullet ("tir.png",player.x,player.y,-2,x,y,contraint);
 	map.addBullet(bullet);
-	tir.push(bullet);	
-}
+	tir.push(bullet);
+};
 
 var initAnimation = function(){
 	for (var i = 0; i < this.tabReceive.length; i++) {
 		if(tabReceive[i][0]  == "0"){
 			tabReceive[i][0] = player1;
 		}
-		else 
+		else
 			tabReceive[i][0] = player2;
 
-		if(tabReceive[i][1] == "moveDown")
+		if(tabReceive[i][1] == "moveDown") {
 			animation[i] = function(i){
 				moveDown(tabReceive[i][0],tabReceive[i][2],tabReceive[i][3]);
 			};
-
-		else if(tabReceive[i][1] == "moveUp" )
+		}
+		else if(tabReceive[i][1] == "moveUp")
 			animation[i] = function(i){
 				moveUp(tabReceive[i][0],tabReceive[i][2],tabReceive[i][3]);
 			};
-		 
-		else if(tabReceive[i][1] == "moveLeft" )
+
+		else if(tabReceive[i][1] == "moveLeft")
 			animation[i] = function(i){
 				moveLeft(tabReceive[i][0],tabReceive[i][2],tabReceive[i][3]);
 			};
-		
-		else if(tabReceive[i][1] == "moveRigth")
-			animation[i] = function(i){ 
+
+		else if(tabReceive[i][1] == "moveRight") {
+			animation[i] = function(i){
 				moveRigth(tabReceive[i][0],tabReceive[i][2],tabReceive[i][3]);
 			};
-		 
+		}
 		else if(tabReceive[i][1] == "shoot" ){
-			animation[i] = function (i){ 
+			animation[i] = function (i){
 				shoot(tabReceive[i][0],tabReceive[i][2],tabReceive[i][3]);
 			};
 		}
 		else if(tabReceive[i][1] == "endTurn" ){
-			animation[i] = function (i){ 
-				
+			animation[i] = function (i){
+
 			};
 		}
 
 	}
-}
+};
 
 window.onload = function() {
 
 	var canvas = document.getElementById('canvas');
 	var ctx = canvas.getContext('2d');
-	
+
 	canvas.width  = map.getLargeur() * 32 /contraint;
 	canvas.height = map.getHauteur() * 32 /contraint;
-	
+
 	var j = 0;
 	var i = 0;
 	var k = 0;
 
-	suprStr(test);
+	suprStr(stringReceive);
 	initAnimation();
 
 	setInterval(function() {
 		map.dessinerMap(ctx);
 	}, 60);
-	
+
 	var asbird;
-	alert(tabReceive[3]);
 	var xbird;
 	var ybird;
-	
-	setInterval(function() {	
+
+	setInterval(function() {
 		    if(j < animation.length){
 		    	animation[j](j);
 		   		++j;
@@ -184,5 +185,5 @@ window.onload = function() {
 		   	var ybird = Math.floor((Math.random() * 32) + 1);
 		   	map.addBird(new Bird("bird.png",32,ybird,3,32,ybird,contraint));
 		   }
-	}, 1000);
-}
+	}, 400);
+};

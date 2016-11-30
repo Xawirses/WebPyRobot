@@ -9,7 +9,7 @@ var STATE = {
     "DIAGONALEUPLEFT"   : 7,
 }
 
-var TIME_MOVING = 9;
+var TIME_MOVING = 3;
 var NB_IMAGE = 9;
 
 function Player(url, x, y, direction,contraint) {
