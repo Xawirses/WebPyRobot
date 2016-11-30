@@ -19,8 +19,12 @@
     {% include 'backend/header.html' with moneyIn=money user=username%}
     <main class="container">
       <div class="section">
-        <h1 id="win">  </h1>
-        <canvas id="canvas"></canvas>
+        <div class="row">
+
+            {% include 'backend/sideNav.html' with page=pageIn %}
+          <h3 id="win"></h3>
+
+          <canvas class="col m9 l10" id="canvas"></canvas>
       </div>
     </main>
     {% include 'backend/footer.html' %}
