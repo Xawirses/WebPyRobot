@@ -7,6 +7,7 @@ var STATE = {
     "DIAGONALEDOWNRIGHT" : 5,
     "DIAGONALEDOWNLEFT" : 6,
     "DIAGONALEUPLEFT"   : 7,
+    "DEAD"              : 8,
 }
 
 var TIME_MOVING = 9;
@@ -74,17 +75,19 @@ Player.prototype.drawPlayer = function(context) {
         
         this.stateAnimation++;
     }
- 
-    context.drawImage(
-        this.image, 
-        this.width * frame, this.direction * this.height, // Point d'origine du rectangle source à prendre dans notre image
-        this.width, this.height, // Taille du rectangle source (c'est la taille du personnage)
-        (this.x * 32/this.contraint) - (this.width /7/this.contraint ) + shiftX, (this.y * 32/this.contraint) - this.height/7/this.contraint + shiftY,
-        this.width/1.4/this.contraint, this.height/1.4/this.contraint 
-    );
-    if(this.direction > 3 && this.stateAnimation == -1) {
-        this.direction = this.direction %4;
-        this.stateAnimation = 15;
+    
+    if(this.direction != STATE.DEAD){
+        context.drawImage(
+            this.image, 
+            this.width * frame, this.direction * this.height, // Point d'origine du rectangle source à prendre dans notre image
+            this.width, this.height, // Taille du rectangle source (c'est la taille du personnage)
+            (this.x * 32/this.contraint) - (this.width /7/this.contraint ) + shiftX, (this.y * 32/this.contraint) - this.height/7/this.contraint + shiftY,
+            this.width/1.4/this.contraint, this.height/1.4/this.contraint 
+        );
+        if(this.direction > 3 && this.stateAnimation == -1) {
+            this.direction = this.direction %4;
+            this.stateAnimation = 15;
+        }
     }
 }
 
@@ -158,4 +161,9 @@ Player.prototype.shoot= function(x, y, x1, y1) {
             this.direction = STATE.DIAGONALEUPRIGHT;
 
     this.stateAnimation = 1;
+}
+
+
+Player.prototype.dead = function(){
+    this.direction = STATE.DEAD;
 }
