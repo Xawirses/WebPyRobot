@@ -138,7 +138,7 @@ class Game(object):
                     pos = self.getPosition(self.__current)
 
             cpt += 1
-            if cpt >= 100: return
+            if cpt >= self.__robots[self.__current].getPM(): return
 
 
         self.__robots[self.__current].setPM(pm)
@@ -181,9 +181,11 @@ class Game(object):
         self.__current = 0
         exec (self.__robotsia[0].text)
         self.__result.append([0, "endTurn", 0, 0])
+        self.__result.append([0, "endTurn", 0, 0])
         self.__current = 1
         exec (self.__robotsia[1].text)
         self.__result.append([1, "endTurn", 0, 0])
+        self.__result.append([0, "endTurn", 0, 0])
 
         self.__robots[0].setPM(self.__robots[0].gettankpm())
         self.__robots[0].setPA(self.__robots[0].gettankpa())

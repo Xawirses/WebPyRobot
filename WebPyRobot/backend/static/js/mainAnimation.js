@@ -26,7 +26,7 @@ var suprStr = 	function (stringReceive){
 							str = str + stringReceive[i];
 
 					}
-				}
+				};
 // var tabReceive = [["0","moveDown","0","1"],
 // 				  ["0","shoot","10","10"],
 // 				  ["0","moveDown","0","0"],
@@ -84,7 +84,7 @@ var moveRigth = function(player,x,y){
 
 var deadPlayer = function(player){
 	player.dead();
-}
+};
 
 var shoot = function(player,x,y){
 	var ctx = canvas.getContext('2d');
@@ -140,9 +140,9 @@ var initAnimation = function(){
 
 			};
 		}
-		else if(tabReceive[i][1] == "dead"){
+		else if(tabReceive[i][1] == "dead")
 			animation[i] = function (i){ 
-				dead(tabReceive[i][0]);
+				deadPlayer(tabReceive[i][0]);
 			
 		}
 
