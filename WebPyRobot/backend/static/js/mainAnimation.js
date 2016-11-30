@@ -84,7 +84,11 @@ var moveRigth = function(player,x,y){
 
 var deadPlayer = function(player){
 	player.dead();
-};
+	if (player == player1)
+		document.getElementById("win").innerHTML = "Le joueur 2 a gagné.";
+	else 
+		document.getElementById("win").innerHTML = "Le joueur 1 a gagné.";
+};	
 
 var shoot = function(player,x,y){
 	var ctx = canvas.getContext('2d');
