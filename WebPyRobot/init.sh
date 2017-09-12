@@ -31,7 +31,7 @@ echo "Install dependencies"
 sudo $PIP_CMD install Django
 sudo $PIP_CMD install Pillow
 # init data base
-./manage.py makemigrations
-./manage.py migrate
-./manage.py loaddata backend/fixtures/database.json
+$PYTHON_CMD ./manage.py makemigrations
+$PYTHON_CMD ./manage.py migrate
+$PYTHON_CMD ./manage.py loaddata backend/fixtures/database.json
 
